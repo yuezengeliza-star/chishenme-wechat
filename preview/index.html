@@ -1,0 +1,2054 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>「吃什么」微信小程序 · 界面预览</title>
+<style>
+/* ============================================================
+   「吃什么」界面预览样式
+   与小程序 app.wxss 同一套设计令牌（1rpx = 0.5px）
+   ============================================================ */
+
+:root {
+  --primary: #FF8B3D;
+  --primary-soft: #FFF1E5;
+  --bg: #FFF8F1;
+  --card: #FFFFFF;
+  --apricot: #FFD8B5;
+  --apricot-soft: #FFEFE1;
+  --sage: #A8C79D;
+  --sage-soft: #EEF5EA;
+  --text: #49352A;
+  --text2: #8B7B72;
+  --text3: #B9ACA3;
+  --divider: #EFE5DC;
+  --coral: #F59A86;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: #F6ECE1;
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  background: #F0E6DA;
+  border-radius: 4px;
+  padding: 1px 5px;
+  font-size: 0.92em;
+}
+
+/* ---------------- 页头 ---------------- */
+.top {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 40px 32px 8px;
+}
+
+.top-brand {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.top-brand img {
+  width: 84px;
+  height: 84px;
+  flex-shrink: 0;
+}
+
+.top h1 {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+}
+
+.top p {
+  margin: 6px 0 0;
+  color: var(--text2);
+  font-size: 14px;
+}
+
+.top-note {
+  margin-top: 22px;
+  padding: 16px 20px;
+  border-radius: 14px;
+  background: #FFFDFA;
+  border: 1px solid #EADFD2;
+  color: #6B5849;
+  font-size: 13.5px;
+  line-height: 1.75;
+}
+
+.top-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.top-nav a {
+  font-size: 13px;
+  color: #8A5A2B;
+  text-decoration: none;
+  background: #FFF1E5;
+  border: 1px solid #F4D9BF;
+  border-radius: 999px;
+  padding: 6px 14px;
+  transition: background 140ms ease;
+}
+
+.top-nav a:hover { background: #FFE3CB; }
+
+/* ---------------- 手机墙 ---------------- */
+.wall {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 28px 32px 60px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px 36px;
+  align-items: flex-start;
+}
+
+.phone-wrap {
+  margin: 0;
+  width: 375px;
+}
+
+.phone {
+  width: 375px;
+  height: 760px;
+  background: var(--bg);
+  border-radius: 34px;
+  border: 1px solid #E4D6C6;
+  box-shadow: 0 18px 40px -18px rgba(73, 53, 42, 0.28), 0 2px 0 rgba(255, 255, 255, 0.6) inset;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.statusbar {
+  height: 24px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 18px;
+  font-size: 10px;
+  color: var(--text2);
+  letter-spacing: 0.5px;
+}
+
+.sb-icons { font-size: 9px; letter-spacing: 1px; }
+
+/* 微信右上角胶囊（示意） */
+.capsule {
+  position: absolute;
+  top: 7px;
+  right: 11px;
+  width: 76px;
+  height: 28px;
+  border-radius: 14px;
+  border: 1px solid rgba(73, 53, 42, 0.16);
+  background: rgba(255, 255, 255, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  font-size: 11px;
+  color: var(--text3);
+  z-index: 3;
+}
+
+.capsule i {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  border: 1px solid rgba(73, 53, 42, 0.22);
+  display: block;
+}
+
+.navbar {
+  height: 44px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  position: relative;
+}
+
+.nav-title {
+  position: absolute;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
+  pointer-events: none;
+}
+
+.nav-left, .nav-right {
+  flex: 1;
+  font-size: 14px;
+  color: var(--text2);
+  z-index: 1;
+}
+
+.nav-right { text-align: right; }
+
+.screen {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 0 16px 28px;
+  scrollbar-width: thin;
+  scrollbar-color: #E0D2C2 transparent;
+}
+
+.screen::-webkit-scrollbar { width: 5px; }
+.screen::-webkit-scrollbar-thumb {
+  background: #E0D2C2;
+  border-radius: 3px;
+}
+
+.screen--tab { padding-bottom: 16px; }
+
+.screen > *:first-child { margin-top: 0; }
+
+.cap {
+  display: none;
+}
+
+figcaption {
+  margin-top: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px;
+  padding-left: 4px;
+}
+
+.cap-num {
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--primary);
+  border-radius: 6px;
+  padding: 2px 7px;
+  letter-spacing: 0.5px;
+}
+
+.cap-title {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.cap-sub {
+  font-size: 12px;
+  color: var(--text2);
+  width: 100%;
+  padding-left: 0;
+}
+
+/* ---------------- 底部 tabBar ---------------- */
+.tabbar {
+  flex-shrink: 0;
+  height: 58px;
+  background: #fff;
+  border-top: 1px solid var(--divider);
+  display: flex;
+}
+
+.tab {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.tab-icon {
+  width: 23px;
+  height: 23px;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+
+.tab-icon--home {
+  background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjOEI3QjcyIiBzdHJva2Utd2lkdGg9IjEuOCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMy4yIDEwLjYgMTIgMy40bDguOCA3LjIiLz48cGF0aCBkPSJNNS4xIDkuNlYyMGEuOS45IDAgMCAwIC45LjloMTJhLjkuOSAwIDAgMCAuOS0uOVY5LjYiLz48cGF0aCBkPSJNOS42IDIwLjl2LTUuNmg0Ljh2NS42Ii8+PC9zdmc+");
+}
+
+.tab-icon--home.is-on {
+  background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjRkY4QjNEIiBzdHJva2Utd2lkdGg9IjEuOCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMy4yIDEwLjYgMTIgMy40bDguOCA3LjIiLz48cGF0aCBkPSJNNS4xIDkuNlYyMGEuOS45IDAgMCAwIC45LjloMTJhLjkuOSAwIDAgMCAuOS0uOVY5LjYiLz48cGF0aCBkPSJNOS42IDIwLjl2LTUuNmg0Ljh2NS42Ii8+PC9zdmc+");
+}
+
+.tab-icon--user {
+  background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjOEI3QjcyIiBzdHJva2Utd2lkdGg9IjEuOCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48Y2lyY2xlIGN4PSIxMiIgY3k9IjgiIHI9IjMuNyIvPjxwYXRoIGQ9Ik00LjYgMjAuNmMwLTQuMSAzLjMtNi4yIDcuNC02LjJzNy40IDIuMSA3LjQgNi4yIi8+PC9zdmc+");
+}
+
+.tab-icon--user.is-on {
+  background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjRkY4QjNEIiBzdHJva2Utd2lkdGg9IjEuOCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48Y2lyY2xlIGN4PSIxMiIgY3k9IjgiIHI9IjMuNyIvPjxwYXRoIGQ9Ik00LjYgMjAuNmMwLTQuMSAzLjMtNi4yIDcuNC02LjJzNy40IDIuMSA3LjQgNi4yIi8+PC9zdmc+");
+}
+
+.tab-label {
+  font-size: 10px;
+  color: var(--text2);
+  margin-top: 3px;
+}
+
+.tab--on .tab-label { color: var(--primary); }
+
+.tab-center { justify-content: flex-start; }
+
+.fab {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  margin-top: -24px;
+  background: linear-gradient(180deg, #FF9E5C 0%, #FF8B3D 100%);
+  box-shadow: 0 5px 11px rgba(255, 139, 61, 0.32);
+  border: 3px solid var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fab i {
+  position: relative;
+  display: block;
+  width: 18px;
+  height: 2px;
+  border-radius: 1px;
+  background: #fff;
+}
+
+.fab i::before {
+  content: '';
+  position: absolute;
+  left: 8px;
+  top: -8px;
+  width: 2px;
+  height: 18px;
+  border-radius: 1px;
+  background: #fff;
+}
+
+.tab-label--fab { color: var(--primary); }
+
+/* ---------------- 通用 ---------------- */
+.grow { flex: 1; min-width: 0; }
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--divider);
+  border-radius: 12px;
+  padding: 14px;
+}
+
+.card-soft {
+  background: var(--apricot-soft);
+  border-color: transparent;
+}
+
+.btn {
+  height: 44px;
+  border: none;
+  border-radius: 22px;
+  font-size: 15px;
+  font-family: inherit;
+  color: #fff;
+  background: var(--primary);
+  padding: 0 20px;
+  cursor: pointer;
+}
+
+.btn-primary { background: var(--primary); }
+.btn-ghost {
+  background: transparent;
+  color: var(--text2);
+  border: 1px solid var(--divider);
+}
+.btn-soft { background: var(--apricot-soft); color: var(--primary); }
+.btn-sage { background: var(--sage); }
+.btn-block { display: block; width: 100%; }
+.btn-sm {
+  height: 32px;
+  border-radius: 16px;
+  font-size: 13px;
+  padding: 0 14px;
+}
+
+.tag {
+  display: inline-block;
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+.tag-soft { background: var(--apricot-soft); color: var(--primary); }
+.tag-apricot { background: var(--apricot); color: #8A4A17; }
+.tag-sage { background: var(--sage-soft); color: #5C7A52; }
+.tag-plain { background: #F6F1EC; color: var(--text2); }
+
+.level {
+  display: inline-block;
+  font-size: 11px;
+  color: var(--primary);
+  background: var(--apricot-soft);
+  border-radius: 999px;
+  padding: 2px 8px;
+}
+
+.cell-arrow { color: var(--text3); font-size: 13px; }
+
+.ava {
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 600;
+  overflow: hidden;
+}
+
+.ava-img { width: 100%; height: 100%; border-radius: 50%; }
+.ava-xs { width: 20px; height: 20px; font-size: 10px; }
+.ava-sm { width: 28px; height: 28px; font-size: 12px; }
+.ava-md { width: 40px; height: 40px; font-size: 16px; }
+.ava-lg { width: 64px; height: 64px; font-size: 24px; }
+.ava-xl { width: 80px; height: 80px; font-size: 30px; }
+
+.section { margin-top: 20px; }
+
+.section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.section-title { font-size: 16px; font-weight: 600; }
+.section-more { font-size: 12px; color: var(--text2); }
+
+/* ---------------- 首页 ---------------- */
+.hd { padding: 14px 0 4px; }
+
+.hd-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.hd-brand { display: flex; align-items: center; }
+.hd-logo { width: 32px; height: 32px; }
+.hd-name {
+  font-size: 20px;
+  font-weight: 600;
+  margin-left: 6px;
+  letter-spacing: 0.5px;
+}
+
+.hd-region {
+  display: flex;
+  align-items: center;
+  height: 30px;
+  padding: 0 11px;
+  border-radius: 999px;
+  background: var(--card);
+  border: 1px solid var(--divider);
+  font-size: 12px;
+  max-width: 160px;
+}
+
+.hd-caret { color: var(--text2); font-size: 11px; margin-left: 4px; }
+.hd-slogan { font-size: 12px; color: var(--text2); margin-top: 5px; }
+
+.meal-tabs { display: flex; gap: 8px; padding: 4px 0; }
+
+.meal-tab {
+  flex: 1;
+  text-align: center;
+  height: 38px;
+  line-height: 38px;
+  border-radius: 19px;
+  font-size: 14px;
+  color: var(--text2);
+  background: transparent;
+}
+
+.meal-tab--on { background: var(--primary); color: #fff; font-weight: 500; }
+
+.meal-tabs--seg {
+  background: #F6F1EC;
+  border-radius: 999px;
+  padding: 3px;
+  margin-top: 12px;
+}
+
+.rand {
+  display: flex;
+  align-items: center;
+  margin-top: 12px;
+  padding: 11px 12px;
+  border-radius: 12px;
+  background: var(--apricot-soft);
+}
+
+.rand-dog { width: 48px; height: 48px; flex-shrink: 0; }
+.rand-q { font-size: 13px; color: var(--text2); }
+.rand-a { font-size: 16px; font-weight: 600; color: var(--primary); margin-top: 2px; }
+
+.feed-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.feed-tabs { display: flex; gap: 20px; }
+
+.feed-tab {
+  font-size: 15px;
+  color: var(--text2);
+  padding-bottom: 4px;
+  position: relative;
+}
+
+.feed-tab--on { color: var(--text); font-weight: 600; }
+
+.feed-tab--on::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--primary);
+}
+
+.feed-count { font-size: 11px; color: var(--text3); }
+
+.feed-label {
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  color: var(--text2);
+  margin: 11px 0 9px;
+}
+
+.feed-label i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--sage);
+  margin-right: 5px;
+}
+
+.feed-tip { font-size: 10.5px; color: var(--text3); text-align: center; margin-top: 6px; line-height: 1.6; }
+
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.grid-item { width: calc((100% - 12px) / 2); }
+
+/* 双列饭卡 */
+.mc {
+  background: #fff;
+  border: 1px solid var(--divider);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.mc-media { position: relative; height: 126px; background: var(--apricot-soft); }
+.mc-media-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.mc-media-ph {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.mc-media-ph span { font-size: 46px; line-height: 1; }
+
+.mc-body { padding: 10px 10px 11px; }
+
+.mc-name {
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mc-amount { font-size: 15px; font-weight: 600; color: var(--primary); margin-top: 3px; }
+.mc-amount--none { font-size: 12px; font-weight: 400; color: var(--text3); }
+
+.mc-foot { display: flex; align-items: center; margin-top: 7px; }
+.mc-author {
+  font-size: 11px;
+  color: var(--text2);
+  margin-left: 5px;
+  max-width: 64px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.mc-sep { font-size: 11px; color: var(--text3); margin: 0 3px; }
+.mc-time { font-size: 11px; color: var(--text2); }
+
+/* ---------------- 记一顿 ---------------- */
+.field { margin-bottom: 18px; }
+.field-label { font-size: 13px; color: var(--text2); margin-bottom: 7px; }
+
+.input {
+  width: 100%;
+  min-height: 46px;
+  background: #fff;
+  border: 1px solid var(--divider);
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 15px;
+}
+
+.input--ph { color: var(--text3); }
+.input--area { min-height: 88px; line-height: 1.6; }
+.counter { text-align: right; font-size: 11px; color: var(--text3); margin-top: 4px; }
+
+.rec-time {
+  display: flex;
+  align-items: center;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: var(--primary-soft);
+  margin: 11px 0 18px;
+  font-size: 14px;
+}
+
+.rec-time span:first-child { font-size: 14px; }
+.rec-time-text { flex: 1; color: var(--primary); font-weight: 500; margin-left: 6px; }
+.rec-time-caret { color: var(--primary); }
+
+.rec-images { display: flex; gap: 10px; margin-bottom: 18px; }
+
+.rec-img {
+  width: 100px;
+  height: 100px;
+  border-radius: 10px;
+  border: 1px dashed var(--apricot);
+  background: var(--apricot-soft);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.rec-img-plus { font-size: 23px; color: var(--primary); line-height: 1; }
+.rec-img-label { font-size: 12px; color: var(--primary); margin-top: 5px; }
+.rec-img-opt { font-size: 10px; color: var(--text3); margin-top: 2px; }
+
+.rec-amount {
+  display: flex;
+  align-items: center;
+  height: 46px;
+  background: #fff;
+  border: 1px solid var(--divider);
+  border-radius: 10px;
+  padding: 0 12px;
+}
+
+.rec-amount-sign { font-size: 16px; color: var(--primary); font-weight: 600; margin-right: 5px; }
+.rec-amount-ph { flex: 1; color: var(--text3); font-size: 15px; }
+.rec-amount-unknown {
+  font-size: 12px;
+  color: var(--text2);
+  background: #F6F1EC;
+  border-radius: 999px;
+  padding: 5px 10px;
+}
+
+.rec-hint-inline { font-size: 10.5px; color: var(--text3); margin-top: 6px; line-height: 1.6; }
+
+.rec-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 13px 12px;
+  background: #fff;
+  border: 1px solid var(--divider);
+  border-radius: 10px;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.rec-row-left { display: flex; align-items: center; min-width: 0; gap: 6px; }
+.rec-row-caret { color: var(--text3); margin-left: 6px; }
+.rec-row-sum { font-size: 11px; color: var(--text3); }
+.rec-hint { font-size: 10.5px; color: var(--text3); line-height: 1.7; margin: 6px 2px 16px; }
+
+/* ---------------- 饭记详情 ---------------- */
+.detail-hero {
+  margin-top: 12px;
+  width: 100%;
+  height: 280px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.detail-hero-emoji { font-size: 100px; line-height: 1; }
+
+.detail-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-top: 18px;
+}
+
+.detail-name { font-size: 22px; font-weight: 600; }
+.detail-amount { font-size: 20px; font-weight: 600; color: var(--primary); }
+.detail-meta { display: flex; align-items: center; gap: 8px; margin-top: 9px; }
+.detail-meta-time { font-size: 12px; color: var(--text2); }
+
+.detail-author {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.detail-author-name { font-size: 16px; font-weight: 600; }
+.detail-author-sub { display: flex; align-items: center; gap: 7px; margin-top: 4px; }
+.detail-author-count { font-size: 11px; color: var(--text2); }
+
+.detail-block { margin-top: 14px; padding: 14px; }
+.detail-block-title { font-size: 12.5px; color: var(--text2); margin-bottom: 7px; }
+.detail-block-body { font-size: 15px; line-height: 1.7; }
+.detail-block-body--mood { color: #5A463A; }
+.detail-block-note { font-size: 11px; color: var(--text3); margin-top: 6px; }
+.detail-foot-tip { font-size: 10.5px; color: var(--text3); text-align: center; margin: 18px 4px 6px; line-height: 1.7; }
+
+.actionbar--spacer { height: 74px; }
+
+/* ---------------- 随机 ---------------- */
+.rd-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0 2px;
+  font-size: 12px;
+  color: var(--text2);
+}
+
+.rd-card { margin-top: 14px; padding: 14px; }
+
+.rd-media {
+  width: 100%;
+  height: 180px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rd-media-emoji { font-size: 70px; line-height: 1; }
+.rd-name { font-size: 20px; font-weight: 600; margin-top: 14px; }
+.rd-amount { font-size: 17px; font-weight: 600; color: var(--primary); margin-top: 5px; }
+
+.rd-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--divider);
+}
+
+.rd-author { font-size: 14px; font-weight: 500; }
+.rd-time { font-size: 11px; color: var(--text2); margin-top: 2px; }
+.rd-more { font-size: 12px; color: var(--primary); }
+.rd-plan { margin-top: 15px; }
+.rd-again { text-align: center; font-size: 14px; color: var(--text2); padding: 13px 0 2px; }
+.rd-note { font-size: 10.5px; color: var(--text3); text-align: center; line-height: 1.7; margin-top: 18px; }
+
+/* ---------------- 作者主页 ---------------- */
+.au-card { margin-top: 12px; padding: 16px 14px; }
+.au-top { display: flex; align-items: center; gap: 13px; }
+.au-name { font-size: 19px; font-weight: 600; }
+.au-row { display: flex; align-items: center; gap: 7px; margin-top: 6px; }
+.au-count { font-size: 11px; color: var(--text2); }
+.au-bio { font-size: 11.5px; color: var(--text2); margin-top: 6px; line-height: 1.6; }
+.au-follow { margin-top: 15px; }
+.au-hint { font-size: 10.5px; color: var(--text3); text-align: center; margin-top: 8px; }
+
+.au-today { padding: 0 12px; }
+
+.au-today-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 13px 0;
+  border-bottom: 1px solid var(--divider);
+}
+
+.au-today-row:last-child { border-bottom: none; }
+.au-today-left { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.au-today-left span:first-child { font-size: 15px; }
+.au-today-label { font-size: 13px; color: var(--text2); }
+.au-today-right { display: flex; align-items: center; gap: 9px; min-width: 0; }
+.au-today-name {
+  font-size: 14.5px;
+  max-width: 150px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.au-today-amount { font-size: 13px; font-weight: 500; }
+.au-today-none { font-size: 12.5px; color: var(--text3); }
+.au-foot { font-size: 10.5px; color: var(--text3); text-align: center; margin: 22px 4px 10px; line-height: 1.7; }
+
+/* ---------------- 我的 ---------------- */
+.me-card { display: flex; align-items: center; gap: 12px; margin-top: 12px; }
+.me-name { font-size: 18px; font-weight: 600; }
+.me-sub { display: flex; align-items: center; gap: 7px; margin-top: 5px; }
+.me-count { font-size: 11px; color: var(--text2); }
+.me-edit {
+  font-size: 12px;
+  color: var(--text2);
+  padding: 6px 11px;
+  border-radius: 999px;
+  border: 1px solid var(--divider);
+  flex-shrink: 0;
+}
+
+.today { display: flex; gap: 7px; padding: 10px; }
+
+.today-slot {
+  flex: 1;
+  padding: 10px 6px;
+  border-radius: 10px;
+  background: #FAF6F1;
+  text-align: center;
+  min-height: 84px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.today-slot--on { background: var(--primary-soft); }
+.today-emoji { font-size: 15px; line-height: 1.2; }
+.today-label { font-size: 11px; color: var(--text2); margin-top: 3px; }
+.today-name { font-size: 12px; margin-top: 5px; line-height: 1.35; }
+.today-amount { font-size: 11px; color: var(--primary); margin-top: 2px; }
+.today-hint { font-size: 11px; color: var(--text3); margin-top: 7px; padding-left: 2px; }
+
+.month-card {
+  display: flex;
+  align-items: center;
+  margin-top: 16px;
+  background: linear-gradient(135deg, #FFF3E8 0%, #FFE8D3 100%);
+  border-color: transparent;
+}
+
+.month-label { font-size: 12px; color: var(--text2); }
+.month-value { font-size: 26px; font-weight: 600; color: var(--primary); margin-top: 3px; line-height: 1.2; }
+.month-right { display: flex; align-items: center; gap: 5px; }
+.month-more { font-size: 11px; color: var(--text2); }
+
+.entry { padding: 0 14px; }
+
+.entry-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px 0;
+  border-bottom: 1px solid var(--divider);
+}
+
+.entry-row:last-child { border-bottom: none; }
+
+.entry-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  background: var(--apricot-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  flex-shrink: 0;
+}
+
+.entry-title { font-size: 15px; font-weight: 500; }
+.entry-desc { font-size: 11px; color: var(--text2); margin-top: 2px; }
+
+.foot { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 24px; }
+.foot span { font-size: 13px; color: var(--text2); }
+.foot-dot { color: var(--text3) !important; }
+.foot-tip { font-size: 10.5px; color: var(--text3); text-align: center; margin-top: 10px; line-height: 1.7; }
+
+/* ---------------- 饭历 ---------------- */
+.cal-head { margin-top: 12px; padding: 12px 14px 14px; }
+
+.cal-head-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--divider);
+}
+
+.cal-nav {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #F6F1EC;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 17px;
+  line-height: 1;
+}
+
+.cal-head-month { font-size: 17px; font-weight: 600; }
+.cal-head-stat { display: flex; margin-top: 12px; }
+.cal-head-stat > div { flex: 1; }
+.cal-stat-label { font-size: 11.5px; color: var(--text2); }
+.cal-stat-value { font-size: 19px; font-weight: 600; margin-top: 3px; }
+.cal-stat-value--primary { color: var(--primary); }
+
+.cal { margin-top: 12px; padding: 12px 8px 10px; }
+.cal-week { display: flex; }
+.cal-week-cell { width: 14.2857%; text-align: center; font-size: 11px; color: var(--text3); padding-bottom: 6px; }
+.cal-grid { display: flex; flex-wrap: wrap; }
+
+.cal-cell {
+  width: 14.2857%;
+  height: 46px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.cal-cell--empty { opacity: 0; }
+
+.cal-day {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+}
+
+.cal-cell--today .cal-day { color: var(--primary); font-weight: 600; }
+.cal-cell--on .cal-day { background: var(--primary); color: #fff; font-weight: 600; }
+.cal-dots { height: 7px; display: flex; align-items: center; justify-content: center; }
+.cal-dots i { width: 4px; height: 4px; border-radius: 50%; background: var(--sage); }
+.cal-cell--on .cal-dots i { background: #fff; }
+
+.day { margin-top: 12px; padding: 0 14px; }
+
+.day-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 14px 0 10px;
+  border-bottom: 1px solid var(--divider);
+}
+
+.day-date { font-size: 16px; font-weight: 600; }
+.day-total { font-size: 13px; color: var(--primary); font-weight: 500; }
+
+.day-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--divider);
+}
+
+.day-row:last-of-type { border-bottom: none; }
+.day-row-left { display: flex; align-items: center; gap: 9px; min-width: 0; }
+.day-emoji { font-size: 17px; }
+.day-type { font-size: 11px; color: var(--text2); }
+.day-name { font-size: 14.5px; margin-top: 2px; }
+.day-row-right { display: flex; align-items: center; gap: 6px; }
+.day-amount { font-size: 14px; font-weight: 500; }
+.day-tip { font-size: 10.5px; color: var(--text3); padding: 10px 0 14px; line-height: 1.7; }
+
+/* ---------------- 餐单 ---------------- */
+.segment {
+  display: flex;
+  background: #F6F1EC;
+  border-radius: 999px;
+  padding: 3px;
+}
+
+.segment-item {
+  flex: 1;
+  text-align: center;
+  height: 32px;
+  line-height: 32px;
+  font-size: 13px;
+  color: var(--text2);
+  border-radius: 999px;
+}
+
+.segment-item--on { background: #fff; color: var(--primary); font-weight: 500; }
+.plan-seg { margin-top: 14px; }
+.plan-date { font-size: 12px; color: var(--text2); margin: 12px 0 8px 4px; }
+
+.plan-slot-card { margin-bottom: 11px; padding: 12px; }
+
+.plan-slot-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 9px;
+}
+
+.plan-slot-left { display: flex; align-items: center; gap: 6px; }
+.plan-slot-left span:first-child { font-size: 15px; }
+.plan-slot-label { font-size: 13.5px; color: var(--text2); }
+.plan-slot-body { display: flex; align-items: center; gap: 10px; }
+
+.plan-slot-thumb {
+  width: 52px;
+  height: 52px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+.plan-slot-name { font-size: 16px; font-weight: 500; }
+.plan-slot-sub { display: flex; align-items: center; gap: 8px; margin-top: 4px; }
+
+.plan-slot-source {
+  font-size: 11px;
+  color: var(--text2);
+  background: #F6F1EC;
+  border-radius: 999px;
+  padding: 2px 7px;
+}
+
+.plan-slot-ref { font-size: 11px; color: var(--text3); }
+.plan-slot-actions { display: flex; gap: 8px; margin-top: 11px; align-items: center; }
+.plan-slot-actions .btn-sm { height: 32px; }
+.plan-slot-done { font-size: 11px; color: #5C7A52; margin-top: 9px; }
+.plan-slot-empty { font-size: 13px; color: var(--text3); margin-bottom: 10px; }
+.plan-slot-quick { display: flex; gap: 8px; }
+
+.quick-btn {
+  flex: 1;
+  height: 38px;
+  border-radius: 10px;
+  background: var(--apricot-soft);
+  color: var(--primary);
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.plan-foot { display: flex; align-items: center; justify-content: center; padding: 13px; font-size: 13px; color: var(--primary); }
+.plan-tip { font-size: 10.5px; color: var(--text3); line-height: 1.75; margin: 14px 4px 0; }
+
+/* ---------------- 想吃 ---------------- */
+.wish-add {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 48px;
+  border-radius: 12px;
+  background: var(--primary);
+  color: #fff;
+  margin-top: 14px;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.wish-add-plus { font-size: 18px; line-height: 1; }
+.wish-head { display: flex; align-items: baseline; justify-content: space-between; margin-top: 20px; }
+.wish-head-title { font-size: 16px; font-weight: 600; }
+.wish-head-count { font-size: 11px; color: var(--text3); }
+.wish-head-desc { font-size: 11px; color: var(--text2); margin-top: 5px; line-height: 1.7; }
+.wish { margin-top: 11px; padding: 12px; }
+.wish-main { display: flex; gap: 10px; }
+.wish-thumb {
+  width: 66px;
+  height: 66px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 29px;
+  flex-shrink: 0;
+}
+
+.wish-name { font-size: 16px; font-weight: 500; }
+.wish-meta { display: flex; align-items: center; gap: 8px; margin-top: 4px; }
+.wish-place { font-size: 11.5px; color: var(--text2); }
+.wish-amount { font-size: 11.5px; color: var(--primary); }
+.wish-note { font-size: 11px; color: var(--text2); margin-top: 4px; line-height: 1.6; }
+.wish-source { font-size: 10.5px; color: var(--text3); margin-top: 5px; }
+
+.wish-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 11px;
+  padding-top: 10px;
+  border-top: 1px solid var(--divider);
+}
+
+.wish-link { font-size: 12px; color: var(--text2); }
+.wish-link--danger { color: var(--coral); }
+.wish-actions .btn-sm { height: 32px; }
+
+/* ---------------- 消费统计 ---------------- */
+.st-seg { margin-top: 14px; }
+
+.st-total {
+  margin-top: 12px;
+  background: linear-gradient(135deg, #FFF3E8 0%, #FFE8D3 100%);
+  border-color: transparent;
+}
+
+.st-total-label { font-size: 12px; color: var(--text2); }
+.st-total-value { font-size: 34px; font-weight: 600; color: var(--primary); margin-top: 4px; line-height: 1.15; }
+.st-total-sub { font-size: 11.5px; color: var(--text2); margin-top: 5px; }
+
+.st-chart { padding: 14px 10px 8px; }
+.st-bars { display: flex; align-items: flex-end; height: 160px; }
+
+.st-bar {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  height: 160px;
+}
+
+.st-bar-col { width: 100%; height: 129px; display: flex; align-items: flex-end; justify-content: center; }
+
+.st-bar-value {
+  width: 58%;
+  max-width: 13px;
+  border-radius: 4px 4px 0 0;
+  background: linear-gradient(180deg, #FFA45E 0%, #FF8B3D 100%);
+}
+
+.st-bar-label { height: 16px; line-height: 16px; font-size: 9px; color: var(--text3); margin-top: 4px; }
+.st-types { padding: 4px 14px; }
+.st-type { padding: 13px 0; border-bottom: 1px solid var(--divider); }
+.st-type:last-child { border-bottom: none; }
+
+.st-type-head { display: flex; align-items: center; justify-content: space-between; }
+.st-type-left { display: flex; align-items: center; gap: 6px; }
+.st-type-left span:first-child { font-size: 14px; }
+.st-type-label { font-size: 14.5px; }
+.st-type-count { font-size: 10.5px; color: var(--text3); }
+.st-type-right { display: flex; align-items: baseline; gap: 7px; }
+.st-type-value { font-size: 15px; font-weight: 600; }
+.st-type-percent { font-size: 11px; color: var(--text2); width: 31px; text-align: right; }
+
+.st-type-track { height: 6px; border-radius: 3px; background: #F3ECE5; margin-top: 8px; overflow: hidden; }
+.st-type-fill { height: 100%; border-radius: 3px; background: linear-gradient(90deg, #FFD8B5 0%, #FF8B3D 100%); }
+.st-tip { font-size: 10.5px; color: var(--text3); line-height: 1.8; margin: 18px 4px 10px; text-align: center; }
+
+/* ---------------- 欢迎信 ---------------- */
+.wl-head { text-align: center; padding: 16px 0 20px; }
+.wl-logo { width: 90px; height: 90px; }
+.wl-title { font-size: 20px; font-weight: 600; margin-top: 6px; letter-spacing: 0.5px; }
+.wl-sub { font-size: 12px; color: var(--text2); margin-top: 6px; }
+.wl-paper { background: #fff; border: 1px solid var(--divider); border-radius: 12px; padding: 20px 16px; }
+.wl-paper p { font-size: 14.5px; line-height: 2; color: #5A463A; margin: 0 0 11px; text-align: justify; }
+.wl-q {
+  font-size: 15px;
+  line-height: 1.9;
+  color: var(--primary);
+  font-weight: 500;
+  padding: 2px 0 2px 12px;
+  border-left: 3px solid var(--apricot);
+  margin: 12px 0;
+}
+.wl-sign {
+  font-size: 16px;
+  font-weight: 600;
+  text-align: right;
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px dashed var(--divider);
+}
+.wl-tip { font-size: 11px; color: var(--text3); text-align: center; margin-top: 14px; line-height: 1.7; }
+.wl-bar { display: flex; gap: 10px; margin-top: 16px; }
+.wl-bar .btn { flex: 1; height: 44px; font-size: 13.5px; }
+
+/* ---------------- 页脚 ---------------- */
+.bottom {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 32px 60px;
+  color: var(--text2);
+  font-size: 12.5px;
+  line-height: 1.9;
+}
+
+.bottom code { font-size: 0.92em; }
+
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="top-brand">
+    <img src="../assets/logo_main.png" alt="吃什么">
+    <div>
+      <h1>「吃什么」微信小程序 · 界面预览</h1>
+      <p>看看大家今天真的吃了什么 · 奶油杏橙视觉基准 · V1 演示数据</p>
+    </div>
+  </div>
+  <div class="top-note">
+    <b>这是静态预览。</b>真正的可点击小程序在 <code>chishenme-miniprogram/</code> 目录里，
+    用微信开发者工具导入即可完整跑通「注册 → 首页 → 收藏 / 就吃这个 → 餐单 → 我吃了 → 饭历 → 消费统计」闭环。
+    预览页内容由同一份数据层生成，所以数字与真机一致。
+  </div>
+  <nav class="top-nav">
+    <a href="#f-home">首页</a><a href="#f-record">记一顿</a><a href="#f-detail">饭记详情</a><a href="#f-random">随机帮我选</a><a href="#f-author">作者主页</a><a href="#f-mine">我的</a><a href="#f-calendar">饭历</a><a href="#f-plan">餐单</a><a href="#f-wish">想吃</a><a href="#f-stats">消费统计</a><a href="#f-welcome">欢迎信</a>
+  </nav>
+</header>
+
+<main class="wall">
+<figure class="phone-wrap" id="f-home">
+    <div class="phone">
+      <div class="statusbar"><span class="sb-time">9:41</span><span class="sb-icons">●●●● ▮</span></div><div class="capsule"><span>···</span><i></i></div>
+      
+      <div class="screen screen--tab">
+<div class="hd" style="padding-top:44px">
+  <div class="hd-row">
+    <div class="hd-brand"><img class="hd-logo" src="../assets/logo_main.png" alt=""><span class="hd-name">吃什么</span></div>
+    <div class="hd-region"><span>五角场附近</span><span class="hd-caret">▾</span></div>
+  </div>
+  <div class="hd-slogan">看看大家今天真的吃了什么</div>
+</div>
+<div class="meal-tabs">
+  <div class="meal-tab ">早餐</div><div class="meal-tab ">午餐</div><div class="meal-tab meal-tab--on">晚餐</div>
+</div>
+<div class="rand">
+  <img class="rand-dog" src="../assets/logo_main.png" alt="">
+  <div>
+    <div class="rand-q">实在不知道吃什么？</div>
+    <div class="rand-a">随机帮我选 →</div>
+  </div>
+</div>
+<div class="feed-head">
+  <div class="feed-tabs"><span class="feed-tab feed-tab--on">推荐</span><span class="feed-tab">最新</span><span class="feed-tab">跟吃较多</span></div>
+  <span class="feed-count">7 顿</span>
+</div>
+<div class="feed-label"><i></i>附近正在吃</div>
+<div class="grid"><div class="grid-item"><div class="mc">
+    <div class="mc-media"><div class="mc-media-ph" style="background:linear-gradient(150deg,#A8C79D 0%,#8FB884 100%)"><span>🍜</span></div></div>
+    <div class="mc-body">
+      <div class="mc-name">日式豚骨拉面</div>
+      <div class="mc-amount ">¥28</div>
+      <div class="mc-foot"><div class="ava ava-xs" style="background:linear-gradient(140deg,#B9C7E8 0%,#97A9D6 100%)">小</div><span class="mc-author">小鱼</span><span class="mc-sep">·</span><span class="mc-time">17:24</span></div>
+    </div>
+  </div></div><div class="grid-item"><div class="mc">
+    <div class="mc-media"><div class="mc-media-ph" style="background:linear-gradient(150deg,#FFD8B5 0%,#FFB980 100%)"><span>🍜</span></div></div>
+    <div class="mc-body">
+      <div class="mc-name">番茄鸡蛋面</div>
+      <div class="mc-amount ">¥13</div>
+      <div class="mc-foot"><div class="ava ava-xs" style="background:linear-gradient(140deg,#A8C79D 0%,#8FB884 100%)">泡</div><span class="mc-author">泡芙</span><span class="mc-sep">·</span><span class="mc-time">17:40</span></div>
+    </div>
+  </div></div><div class="grid-item"><div class="mc">
+    <div class="mc-media"><div class="mc-media-ph" style="background:linear-gradient(150deg,#FFD8B5 0%,#FFB980 100%)"><span>🍜</span></div></div>
+    <div class="mc-body">
+      <div class="mc-name">螺蛳粉</div>
+      <div class="mc-amount ">¥15</div>
+      <div class="mc-foot"><div class="ava ava-xs" style="background:linear-gradient(140deg,#FFD8B5 0%,#FFB980 100%)">阿</div><span class="mc-author">阿琳</span><span class="mc-sep">·</span><span class="mc-time">17:12</span></div>
+    </div>
+  </div></div><div class="grid-item"><div class="mc">
+    <div class="mc-media"><div class="mc-media-ph" style="background:linear-gradient(150deg,#B9C7E8 0%,#97A9D6 100%)"><span>🍽️</span></div></div>
+    <div class="mc-body">
+      <div class="mc-name">麻辣香锅</div>
+      <div class="mc-amount ">¥32</div>
+      <div class="mc-foot"><div class="ava ava-xs" style="background:linear-gradient(140deg,#A8C79D 0%,#8FB884 100%)">芝</div><span class="mc-author">芝士</span><span class="mc-sep">·</span><span class="mc-time">17:16</span></div>
+    </div>
+  </div></div><div class="grid-item"><div class="mc">
+    <div class="mc-media"><div class="mc-media-ph" style="background:linear-gradient(150deg,#FFD8B5 0%,#FFB980 100%)"><span>🍚</span></div></div>
+    <div class="mc-body">
+      <div class="mc-name">番茄牛腩煲</div>
+      <div class="mc-amount ">¥34</div>
+      <div class="mc-foot"><div class="ava ava-xs" style="background:linear-gradient(140deg,#B9C7E8 0%,#97A9D6 100%)">小</div><span class="mc-author">小鱼</span><span class="mc-sep">·</span><span class="mc-time">昨天 18:20</span></div>
+    </div>
+  </div></div><div class="grid-item"><div class="mc">
+    <div class="mc-media"><div class="mc-media-ph" style="background:linear-gradient(150deg,#A8C79D 0%,#8FB884 100%)"><span>🍜</span></div></div>
+    <div class="mc-body">
+      <div class="mc-name">日式豚骨拉面</div>
+      <div class="mc-amount ">¥28</div>
+      <div class="mc-foot"><div class="ava ava-xs" style="background:linear-gradient(140deg,#FFD8B5 0%,#FFB980 100%)">小</div><span class="mc-author">小橙</span><span class="mc-sep">·</span><span class="mc-time">昨天 18:44</span></div>
+    </div>
+  </div></div><div class="grid-item"><div class="mc">
+    <div class="mc-media"><div class="mc-media-ph" style="background:linear-gradient(150deg,#F7C56B 0%,#EFAE3F 100%)"><span>🍗</span></div></div>
+    <div class="mc-body">
+      <div class="mc-name">炸鸡 + 可乐</div>
+      <div class="mc-amount ">¥29</div>
+      <div class="mc-foot"><div class="ava ava-xs" style="background:linear-gradient(140deg,#A8C79D 0%,#8FB884 100%)">阿</div><span class="mc-author">阿杰</span><span class="mc-sep">·</span><span class="mc-time">17:36</span></div>
+    </div>
+  </div></div></div>
+<div class="feed-tip">排序：当前餐次 › 约 3km 距离 › 新鲜度 › 就吃这个次数</div>
+</div>
+      <div class="tabbar">
+    <div class="tab tab--on">
+          <div class="tab-icon tab-icon--home is-on"></div>
+          <div class="tab-label">首页</div>
+        </div><div class="tab tab-center"><div class="fab"><i></i></div><div class="tab-label tab-label--fab">记一顿</div></div><div class="tab ">
+          <div class="tab-icon tab-icon--user "></div>
+          <div class="tab-label">我的</div>
+        </div>
+  </div>
+    </div>
+    <figcaption>
+      <span class="cap-num">01</span>
+      <span class="cap-title">首页</span>
+      <span class="cap-sub">当前餐次饭流 · 双列规整饭卡（自定义导航，品牌行避开胶囊）</span>
+    </figcaption>
+  </figure>
+<figure class="phone-wrap" id="f-record">
+    <div class="phone">
+      <div class="statusbar"><span class="sb-time">9:41</span><span class="sb-icons">●●●● ▮</span></div><div class="capsule"><span>···</span><i></i></div>
+      <div class="navbar">
+    <div class="nav-left"></div>
+    <div class="nav-title">记一顿</div>
+    <div class="nav-right"></div>
+  </div>
+      <div class="screen screen--tab">
+<div class="meal-tabs meal-tabs--seg">
+  <div class="meal-tab ">早餐</div><div class="meal-tab ">午餐</div><div class="meal-tab meal-tab--on">晚餐</div>
+</div>
+<div class="rec-time"><span>🕒</span><span class="rec-time-text">今天 17:46</span><span class="rec-time-caret">›</span></div>
+
+<div class="field">
+  <div class="field-label">今天吃了什么？</div>
+  <div class="input input--ph">例如：番茄肥牛饭</div>
+</div>
+
+<div class="rec-images">
+  <div class="rec-img rec-img--add"><span class="rec-img-plus">＋</span><span class="rec-img-label">添加照片</span><span class="rec-img-opt">（可选）</span></div>
+</div>
+
+<div class="field">
+  <div class="field-label">金额</div>
+  <div class="rec-amount">
+    <span class="rec-amount-sign">¥</span>
+    <span class="rec-amount-ph">例如 22</span>
+    <span class="rec-amount-unknown">不记金额</span>
+  </div>
+  <div class="rec-hint-inline">填了金额，就能自动生成你的周 / 月 / 年吃饭消费总结。</div>
+</div>
+
+<div class="field">
+  <div class="field-label">今天这顿感觉怎么样？（可选）</div>
+  <div class="input input--area input--ph">写一句也行，不写也行……</div>
+  <div class="counter">0/50</div>
+</div>
+
+<div class="rec-row">
+  <div class="rec-row-left"><span>📍</span><span>已关联 五角场附近</span></div>
+  <span class="rec-row-caret">›</span>
+</div>
+
+<div class="rec-row">
+  <div class="rec-row-left"><span>⚙️</span><span>发布设置</span></div>
+  <div class="rec-row-left"><span class="rec-row-sum">公开 · 模糊区域 · 公开感受</span><span class="rec-row-caret">›</span></div>
+</div>
+
+<div class="rec-hint">饭流、饭历和消费统计都按你填的「实际用餐时间」归档，所以晚上也能补记中午那一顿。</div>
+<button class="btn btn-primary btn-block">记下这一顿</button>
+</div>
+      <div class="tabbar">
+    <div class="tab ">
+          <div class="tab-icon tab-icon--home "></div>
+          <div class="tab-label">首页</div>
+        </div><div class="tab tab-center"><div class="fab"><i></i></div><div class="tab-label tab-label--fab">记一顿</div></div><div class="tab ">
+          <div class="tab-icon tab-icon--user "></div>
+          <div class="tab-label">我的</div>
+        </div>
+  </div>
+    </div>
+    <figcaption>
+      <span class="cap-num">02</span>
+      <span class="cap-title">记一顿</span>
+      <span class="cap-sub">单屏完成 · 三类隐私独立设置</span>
+    </figcaption>
+  </figure>
+<figure class="phone-wrap" id="f-detail">
+    <div class="phone">
+      <div class="statusbar"><span class="sb-time">9:41</span><span class="sb-icons">●●●● ▮</span></div><div class="capsule"><span>···</span><i></i></div>
+      
+      <div class="screen ">
+<div class="detail-hero" style="background:linear-gradient(150deg,#A8C79D 0%,#8FB884 100%)"><span class="detail-hero-emoji">🍜</span></div>
+
+<div class="detail-head">
+  <div class="detail-name">日式豚骨拉面</div>
+  <div class="detail-amount">¥28</div>
+</div>
+<div class="detail-meta"><span class="tag tag-soft">晚餐</span><span class="detail-meta-time">今天 17:24</span></div>
+
+<div class="card detail-author">
+  <div class="ava ava-md" style="background:linear-gradient(140deg,#B9C7E8 0%,#97A9D6 100%)">小</div>
+  <div class="grow">
+    <div class="detail-author-name">小鱼</div>
+    <div class="detail-author-sub">
+      <span class="level">Lv.3 · 常来吃饭</span>
+      <span class="detail-author-count">已记录 37 顿</span>
+    </div>
+  </div>
+  <span class="cell-arrow">›</span>
+</div>
+
+<div class="card detail-block">
+  <div class="detail-block-title">📍 在哪儿吃的</div>
+  <div class="detail-block-body">五角场面馆</div>
+  <div class="detail-block-note">距你约 500m</div>
+</div>
+
+<div class="card detail-block">
+  <div class="detail-block-title">吃这一顿的时候</div>
+  <div class="detail-block-body detail-block-body--mood">汤很浓，适合降温的晚上。</div>
+</div>
+
+<div class="detail-foot-tip">这里不显示点赞、评论和粉丝数。觉得不错，就默默吃一顿一样的。</div>
+<div class="actionbar actionbar--spacer"></div>
+</div>
+      
+    </div>
+    <figcaption>
+      <span class="cap-num">03</span>
+      <span class="cap-title">饭记详情</span>
+      <span class="cap-sub">大图 / 饭名金额 / 作者 / 地点 / 感受 / 收藏 · 就吃这个</span>
+    </figcaption>
+  </figure>
+<figure class="phone-wrap" id="f-random">
+    <div class="phone">
+      <div class="statusbar"><span class="sb-time">9:41</span><span class="sb-icons">●●●● ▮</span></div><div class="capsule"><span>···</span><i></i></div>
+      <div class="navbar">
+    <div class="nav-left"></div>
+    <div class="nav-title">随机帮我选</div>
+    <div class="nav-right"></div>
+  </div>
+      <div class="screen ">
+<div class="rd-bar"><span class="rd-back">‹ 换个来源</span><span class="rd-source-name">附近大家正在吃</span></div>
+<div class="meal-tabs meal-tabs--seg">
+  <div class="meal-tab ">早餐</div><div class="meal-tab ">午餐</div><div class="meal-tab meal-tab--on">晚餐</div>
+</div>
+
+<div class="card rd-card">
+  <div class="rd-media" style="background:linear-gradient(150deg,#FFD8B5 0%,#FFB980 100%)"><span class="rd-media-emoji">🍚</span></div>
+  <div class="rd-name">番茄牛腩煲</div>
+  <div class="rd-amount">¥34</div>
+  <div class="rd-meta">
+    <div class="ava ava-sm" style="background:linear-gradient(140deg,#B9C7E8 0%,#97A9D6 100%)">小</div>
+    <div class="grow">
+      <div class="rd-author">小鱼</div>
+      <div class="rd-time">昨天 18:20</div>
+    </div>
+    <span class="rd-more">看这一顿 ›</span>
+  </div>
+  <button class="btn btn-primary btn-block rd-plan">就吃这个</button>
+  <div class="rd-again">换一个</div>
+</div>
+
+<div class="rd-note">抽到的都是当前餐次、附近约 3km 内、大家今天真实吃过的饭。短时间内不会重复抽到同一条。</div>
+</div>
+      
+    </div>
+    <figcaption>
+      <span class="cap-num">04</span>
+      <span class="cap-title">随机帮我选</span>
+      <span class="cap-sub">附近大家正在吃 / 我的想吃</span>
+    </figcaption>
+  </figure>
+<figure class="phone-wrap" id="f-author">
+    <div class="phone">
+      <div class="statusbar"><span class="sb-time">9:41</span><span class="sb-icons">●●●● ▮</span></div><div class="capsule"><span>···</span><i></i></div>
+      <div class="navbar">
+    <div class="nav-left"></div>
+    <div class="nav-title">小鱼</div>
+    <div class="nav-right"></div>
+  </div>
+      <div class="screen ">
+<div class="card au-card">
+  <div class="au-top">
+    <div class="ava ava-xl" style="background:linear-gradient(140deg,#B9C7E8 0%,#97A9D6 100%)">小</div>
+    <div class="grow au-info">
+      <div class="au-name">小鱼</div>
+      <div class="au-row"><span class="level">Lv.3 · 常来吃饭</span><span class="au-count">已记录 37 顿</span></div>
+      <div class="au-bio">喜欢在普通的日子里认真吃饭。</div>
+    </div>
+  </div>
+  <button class="btn btn-sage btn-block au-follow">已跟吃 ✓</button>
+  <div class="au-hint">以后多看看 TA 都吃些什么</div>
+</div>
+
+<div class="section">
+  <div class="section-head"><span class="section-title">今天吃了什么</span></div>
+  <div class="card au-today">
+    <div class="au-today-row">
+        <div class="au-today-left"><span>🌅</span><span class="au-today-label">早餐</span></div>
+        <div class="au-today-right"><span class="au-today-none">还没记录</span></div>
+      </div><div class="au-today-row">
+        <div class="au-today-left"><span>☀️</span><span class="au-today-label">午餐</span></div>
+        <div class="au-today-right"><span class="au-today-name">海南鸡饭</span><span class="au-today-amount">¥26</span></div>
+      </div><div class="au-today-row">
+        <div class="au-today-left"><span>🌙</span><span class="au-today-label">晚餐</span></div>
+        <div class="au-today-right"><span class="au-today-name">日式豚骨拉面</span><span class="au-today-amount">¥28</span></div>
+      </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-head"><span class="section-title">最近吃过</span><span class="section-more">共 37 顿</span></div>
+  <div class="grid"><div class="grid-item"><div class="mc">
+    <div class="mc-media"><div class="mc-media-ph" style="background:linear-gradient(150deg,#A8C79D 0%,#8FB884 100%)"><span>🍜</span></div></div>
+    <div class="mc-body">
+      <div class="mc-name">日式豚骨拉面</div>
+      <div class="mc-amount ">¥28</div>
+      <div class="mc-foot"><span class="mc-time">今天</span></div>
+    </div>
+  </div></div><div class="grid-item"><div class="mc">
+    <div class="mc-media"><div class="mc-media-ph" style="background:linear-gradient(150deg,#B9C7E8 0%,#97A9D6 100%)"><span>🍚</span></div></div>
+    <div class="mc-body">
+      <div class="mc-name">海南鸡饭</div>
+      <div class="mc-amount ">¥26</div>
+      <div class="mc-foot"><span class="mc-time">今天</span></div>
+    </div>
+  </div></div><div class="grid-item"><div class="mc">
+    <div class="mc-media"><div class="mc-media-ph" style="background:linear-gradient(150deg,#F7C56B 0%,#EFAE3F 100%)"><span>🍜</span></div></div>
+    <div class="mc-body">
+      <div class="mc-name">红烧牛肉面</div>
+      <div class="mc-amount ">¥18</div>
+      <div class="mc-foot"><span class="mc-time">今天</span></div>
+    </div>
+  </div></div><div class="grid-item"><div class="mc">
+    <div class="mc-media"><div class="mc-media-ph" style="background:linear-gradient(150deg,#FFD8B5 0%,#FFB980 100%)"><span>🍚</span></div></div>
+    <div class="mc-body">
+      <div class="mc-name">番茄牛腩煲</div>
+      <div class="mc-amount ">¥34</div>
+      <div class="mc-foot"><span class="mc-time">昨天</span></div>
+    </div>
+  </div></div></div>
+</div>
+
+<div class="au-foot">不显示粉丝数，也不做点赞竞争。这里只是一个吃饭档案。</div>
+</div>
+      
+    </div>
+    <figcaption>
+      <span class="cap-num">05</span>
+      <span class="cap-title">作者个人主页</span>
+      <span class="cap-sub">吃饭档案 · 跟吃 TA</span>
+    </figcaption>
+  </figure>
+<figure class="phone-wrap" id="f-mine">
+    <div class="phone">
+      <div class="statusbar"><span class="sb-time">9:41</span><span class="sb-icons">●●●● ▮</span></div><div class="capsule"><span>···</span><i></i></div>
+      <div class="navbar">
+    <div class="nav-left"></div>
+    <div class="nav-title">我的</div>
+    <div class="nav-right"></div>
+  </div>
+      <div class="screen screen--tab">
+<div class="card me-card">
+  <div class="ava ava-lg" style="background:linear-gradient(140deg,#FFD8B5 0%,#FFB980 100%)">小</div>
+  <div class="grow">
+    <div class="me-name">小橙</div>
+    <div class="me-sub"><span class="level">Lv.4 · 干饭柴</span><span class="me-count">已记录 89 顿</span></div>
+  </div>
+  <div class="me-edit">编辑资料</div>
+</div>
+
+<div class="section">
+  <div class="section-head"><span class="section-title">今天</span><span class="section-more">已记录 2 顿 · ¥25</span></div>
+  <div class="card today">
+    <div class="today-slot today-slot--on">
+      <span class="today-emoji">🌅</span>
+      <span class="today-label">早餐</span>
+      <span class="today-name">小笼包</span>
+      <span class="today-amount">¥9</span>
+    </div><div class="today-slot today-slot--on">
+      <span class="today-emoji">☀️</span>
+      <span class="today-label">午餐</span>
+      <span class="today-name">麻辣烫</span>
+      <span class="today-amount">¥16</span>
+    </div><div class="today-slot ">
+      <span class="today-emoji">🌙</span>
+      <span class="today-label">晚餐</span>
+      <span class="today-name">还没记</span>
+      
+    </div>
+  </div>
+  <div class="today-hint">晚餐还没记</div>
+</div>
+
+<div class="card month-card">
+  <div class="grow">
+    <div class="month-label">本月吃饭</div>
+    <div class="month-value">¥341</div>
+  </div>
+  <div class="month-right"><span class="month-more">周 / 月 / 年</span><span class="cell-arrow">›</span></div>
+</div>
+
+<div class="section">
+  <div class="card entry">
+    <div class="entry-row">
+      <span class="entry-icon">🗓</span>
+      <div class="grow"><div class="entry-title">我的饭历</div><div class="entry-desc">回看已经真实吃过的饭</div></div>
+      <span class="cell-arrow">›</span>
+    </div><div class="entry-row">
+      <span class="entry-icon">📋</span>
+      <div class="grow"><div class="entry-title">我的餐单</div><div class="entry-desc">今天和明天的三餐安排</div></div>
+      <span class="cell-arrow">›</span>
+    </div><div class="entry-row">
+      <span class="entry-icon">💛</span>
+      <div class="grow"><div class="entry-title">我的想吃</div><div class="entry-desc">以后可能想吃的都在这</div></div>
+      <span class="cell-arrow">›</span>
+    </div><div class="entry-row">
+      <span class="entry-icon">👀</span>
+      <div class="grow"><div class="entry-title">我跟吃的人</div><div class="entry-desc">看看他们今天吃了什么</div></div>
+      <span class="cell-arrow">›</span>
+    </div>
+  </div>
+</div>
+
+<div class="foot"><span>使用说明</span><span class="foot-dot">·</span><span>设置</span></div>
+<div class="foot-tip">等级只做轻量展示，不影响推荐。这里没有排行榜，也没有红点。</div>
+</div>
+      <div class="tabbar">
+    <div class="tab ">
+          <div class="tab-icon tab-icon--home "></div>
+          <div class="tab-label">首页</div>
+        </div><div class="tab tab-center"><div class="fab"><i></i></div><div class="tab-label tab-label--fab">记一顿</div></div><div class="tab tab--on">
+          <div class="tab-icon tab-icon--user is-on"></div>
+          <div class="tab-label">我的</div>
+        </div>
+  </div>
+    </div>
+    <figcaption>
+      <span class="cap-num">06</span>
+      <span class="cap-title">我的</span>
+      <span class="cap-sub">轻量个人生活仪表盘</span>
+    </figcaption>
+  </figure>
+<figure class="phone-wrap" id="f-calendar">
+    <div class="phone">
+      <div class="statusbar"><span class="sb-time">9:41</span><span class="sb-icons">●●●● ▮</span></div><div class="capsule"><span>···</span><i></i></div>
+      <div class="navbar">
+    <div class="nav-left"></div>
+    <div class="nav-title">我的饭历</div>
+    <div class="nav-right"></div>
+  </div>
+      <div class="screen ">
+<div class="card cal-head">
+  <div class="cal-head-row"><span class="cal-nav">‹</span><span class="cal-head-month">2026年10月</span><span class="cal-nav">›</span></div>
+  <div class="cal-head-stat">
+    <div><div class="cal-stat-label">本月已记录</div><div class="cal-stat-value">20 顿</div></div>
+    <div><div class="cal-stat-label">本月消费</div><div class="cal-stat-value cal-stat-value--primary">¥341</div></div>
+  </div>
+</div>
+
+<div class="card cal">
+  <div class="cal-week"><div class="cal-week-cell">一</div><div class="cal-week-cell">二</div><div class="cal-week-cell">三</div><div class="cal-week-cell">四</div><div class="cal-week-cell">五</div><div class="cal-week-cell">六</div><div class="cal-week-cell">日</div></div>
+  <div class="cal-grid">
+    <div class="cal-cell cal-cell--empty  ">
+      
+    </div><div class="cal-cell cal-cell--empty  ">
+      
+    </div><div class="cal-cell cal-cell--empty  ">
+      
+    </div><div class="cal-cell   ">
+      <span class="cal-day">1</span><span class="cal-dots"><i></i></span>
+    </div><div class="cal-cell   ">
+      <span class="cal-day">2</span><span class="cal-dots"><i></i></span>
+    </div><div class="cal-cell   ">
+      <span class="cal-day">3</span><span class="cal-dots"><i></i></span>
+    </div><div class="cal-cell   ">
+      <span class="cal-day">4</span><span class="cal-dots"><i></i></span>
+    </div><div class="cal-cell   ">
+      <span class="cal-day">5</span><span class="cal-dots"><i></i></span>
+    </div><div class="cal-cell   ">
+      <span class="cal-day">6</span><span class="cal-dots"><i></i></span>
+    </div><div class="cal-cell  cal-cell--today cal-cell--on">
+      <span class="cal-day">7</span><span class="cal-dots"><i></i></span>
+    </div><div class="cal-cell   ">
+      <span class="cal-day">8</span><span class="cal-dots"></span>
+    </div><div class="cal-cell   ">
+      <span class="cal-day">9</span><span class="cal-dots"></span>
+    </div><div class="cal-cell   ">
+      <span class="cal-day">10</span><span class="cal-dots"></span>
+    </div><div class="cal-cell   ">
+      <span class="cal-day">11</span><span class="cal-dots"></span>
+    </div><div class="cal-cell   ">
+      <span class="cal-day">12</span><span class="cal-dots"></span>
+    </div><div class="cal-cell   ">
+      <span class="cal-day">13</span><span class="cal-dots"></span>
+    </div><div class="cal-cell   ">
+      <span class="cal-day">14</span><span class="cal-dots"></span>
+    </div><div class="cal-cell   ">
+      <span class="cal-day">15</span><span class="cal-dots"></span>
+    </div><div class="cal-cell   ">
+      <span class="cal-day">16</span><span class="cal-dots"></span>
+    </div><div class="cal-cell   ">
+      <span class="cal-day">17</span><span class="cal-dots"></span>
+    </div><div class="cal-cell   ">
+      <span class="cal-day">18</span><span class="cal-dots"></span>
+    </div><div class="cal-cell   ">
+      <span class="cal-day">19</span><span class="cal-dots"></span>
+    </div><div class="cal-cell   ">
+      <span class="cal-day">20</span><span class="cal-dots"></span>
+    </div><div class="cal-cell   ">
+      <span class="cal-day">21</span><span class="cal-dots"></span>
+    </div><div class="cal-cell   ">
+      <span class="cal-day">22</span><span class="cal-dots"></span>
+    </div><div class="cal-cell   ">
+      <span class="cal-day">23</span><span class="cal-dots"></span>
+    </div><div class="cal-cell   ">
+      <span class="cal-day">24</span><span class="cal-dots"></span>
+    </div><div class="cal-cell   ">
+      <span class="cal-day">25</span><span class="cal-dots"></span>
+    </div><div class="cal-cell   ">
+      <span class="cal-day">26</span><span class="cal-dots"></span>
+    </div><div class="cal-cell   ">
+      <span class="cal-day">27</span><span class="cal-dots"></span>
+    </div><div class="cal-cell   ">
+      <span class="cal-day">28</span><span class="cal-dots"></span>
+    </div><div class="cal-cell   ">
+      <span class="cal-day">29</span><span class="cal-dots"></span>
+    </div><div class="cal-cell   ">
+      <span class="cal-day">30</span><span class="cal-dots"></span>
+    </div><div class="cal-cell   ">
+      <span class="cal-day">31</span><span class="cal-dots"></span>
+    </div><div class="cal-cell cal-cell--empty  ">
+      
+    </div>
+  </div>
+</div>
+
+<div class="card day">
+  <div class="day-head"><span class="day-date">10月7日</span><span class="day-total">当天 ¥25</span></div>
+  <div class="day-row">
+    <div class="day-row-left"><span class="day-emoji">🌅</span>
+      <div><div class="day-type">早餐</div><div class="day-name">小笼包</div></div>
+    </div>
+    <div class="day-row-right"><span class="day-amount">¥9</span><span class="cell-arrow">›</span></div>
+  </div><div class="day-row">
+    <div class="day-row-left"><span class="day-emoji">☀️</span>
+      <div><div class="day-type">午餐</div><div class="day-name">麻辣烫</div></div>
+    </div>
+    <div class="day-row-right"><span class="day-amount">¥16</span><span class="cell-arrow">›</span></div>
+  </div><div class="day-row">
+    <div class="day-row-left"><span class="day-emoji">🌙</span>
+      <div><div class="day-type">晚餐</div><div class="day-name">还没记录</div></div>
+    </div>
+    <div class="day-row-right"></div>
+  </div>
+  <div class="day-tip">饭历只包含真实已经吃过的饭。收藏和餐单计划不会出现在这里。</div>
+</div>
+</div>
+      
+    </div>
+    <figcaption>
+      <span class="cap-num">07</span>
+      <span class="cap-title">我的饭历</span>
+      <span class="cap-sub">月历 + 当天三餐 + 当日合计</span>
+    </figcaption>
+  </figure>
+<figure class="phone-wrap" id="f-plan">
+    <div class="phone">
+      <div class="statusbar"><span class="sb-time">9:41</span><span class="sb-icons">●●●● ▮</span></div><div class="capsule"><span>···</span><i></i></div>
+      <div class="navbar">
+    <div class="nav-left"></div>
+    <div class="nav-title">我的餐单</div>
+    <div class="nav-right"></div>
+  </div>
+      <div class="screen ">
+<div class="segment plan-seg"><div class="segment-item segment-item--on">今天</div><div class="segment-item">明天</div></div>
+<div class="plan-date">今天 · 10月7日</div>
+<div class="card plan-slot-card">
+  <div class="plan-slot-head">
+    <div class="plan-slot-left"><span>🌅</span><span class="plan-slot-label">早餐</span></div>
+    <span class="tag tag-plain">未安排</span>
+  </div>
+  <div class="plan-slot-empty">还没想好吃什么</div>
+    <div class="plan-slot-quick">
+      <div class="quick-btn"><span>🍚</span><span>看看大家吃什么</span></div>
+      <div class="quick-btn"><span>🎲</span><span>随机帮我选</span></div>
+    </div>
+</div><div class="card plan-slot-card">
+  <div class="plan-slot-head">
+    <div class="plan-slot-left"><span>☀️</span><span class="plan-slot-label">午餐</span></div>
+    <span class="tag tag-sage">已吃</span>
+  </div>
+  <div class="plan-slot-body">
+      <div class="plan-slot-thumb" style="background:linear-gradient(150deg,#E3B7D2 0%,#CF93BC 100%)"><span>🌶️</span></div>
+      <div class="grow">
+        <div class="plan-slot-name">麻辣烫</div>
+        <div class="plan-slot-sub"><span class="plan-slot-ref">约 ¥16</span></div>
+      </div>
+    </div>
+    <div class="plan-slot-done">已计入饭历和消费统计</div>
+</div><div class="card plan-slot-card">
+  <div class="plan-slot-head">
+    <div class="plan-slot-left"><span>🌙</span><span class="plan-slot-label">晚餐</span></div>
+    <span class="tag tag-apricot">待吃</span>
+  </div>
+  <div class="plan-slot-body">
+      <div class="plan-slot-thumb" style="background:linear-gradient(150deg,#A8C79D 0%,#8FB884 100%)"><span>🍜</span></div>
+      <div class="grow">
+        <div class="plan-slot-name">日式豚骨拉面</div>
+        <div class="plan-slot-sub"><span class="plan-slot-source">来自 @小鱼</span><span class="plan-slot-ref">约 ¥28</span></div>
+      </div>
+    </div>
+    <div class="plan-slot-actions"><button class="btn btn-soft btn-sm">取消</button><button class="btn btn-primary btn-sm grow">我吃了</button></div>
+</div>
+<div class="card card-soft plan-foot"><span>从「我的想吃」里挑一个安排进来 →</span></div>
+<div class="plan-tip">餐单管的是「准备吃什么」。参考价格不会计入真实消费；只有点「我吃了」并完成记一顿，才会进入饭历与消费统计。</div>
+</div>
+      
+    </div>
+    <figcaption>
+      <span class="cap-num">08</span>
+      <span class="cap-title">我的餐单</span>
+      <span class="cap-sub">今天 / 明天 × 三餐 · 已吃 / 待吃 / 未安排</span>
+    </figcaption>
+  </figure>
+<figure class="phone-wrap" id="f-wish">
+    <div class="phone">
+      <div class="statusbar"><span class="sb-time">9:41</span><span class="sb-icons">●●●● ▮</span></div><div class="capsule"><span>···</span><i></i></div>
+      <div class="navbar">
+    <div class="nav-left"></div>
+    <div class="nav-title">我的想吃</div>
+    <div class="nav-right"></div>
+  </div>
+      <div class="screen ">
+<div class="wish-add"><span class="wish-add-plus">＋</span><span>记一个想吃的</span></div>
+<div class="wish-head"><span class="wish-head-title">我的想吃</span><span class="wish-head-count">3 个</span></div>
+<div class="wish-head-desc">私人饮食愿望清单。收藏别人的饭记，或者自己随手记下路过的小馆子。</div>
+
+<div class="card wish">
+  <div class="wish-main">
+    <div class="wish-thumb" style="background:linear-gradient(150deg,#B9C7E8 0%,#97A9D6 100%)"><span>🍰</span></div>
+    <div class="grow">
+      <div class="wish-name">草莓蛋糕</div>
+      <div class="wish-meta">
+        <span class="wish-place">五角场商圈</span>
+        <span class="wish-amount">约 ¥35</span>
+      </div>
+      <div class="wish-note">“看起来很好吃！”</div>
+      <div class="wish-source">自己添加</div>
+    </div>
+  </div>
+  <div class="wish-actions">
+    <span class="wish-link">我吃过了</span>
+    <span class="wish-link wish-link--danger">移除</span>
+    <button class="btn btn-primary btn-sm grow">安排到餐单</button>
+  </div>
+</div><div class="card wish">
+  <div class="wish-main">
+    <div class="wish-thumb" style="background:linear-gradient(150deg,#A8C79D 0%,#8FB884 100%)"><span>🍜</span></div>
+    <div class="grow">
+      <div class="wish-name">日式豚骨拉面</div>
+      <div class="wish-meta">
+        <span class="wish-place">五角场</span>
+        <span class="wish-amount">约 ¥28</span>
+      </div>
+      <div class="wish-note">“想挑个不太去吃饭的时间去”</div>
+      <div class="wish-source">自己添加</div>
+    </div>
+  </div>
+  <div class="wish-actions">
+    <span class="wish-link">我吃过了</span>
+    <span class="wish-link wish-link--danger">移除</span>
+    <button class="btn btn-primary btn-sm grow">安排到餐单</button>
+  </div>
+</div><div class="card wish">
+  <div class="wish-main">
+    <div class="wish-thumb" style="background:linear-gradient(150deg,#F59A86 0%,#EE7E68 100%)"><span>🍜</span></div>
+    <div class="grow">
+      <div class="wish-name">老王牛肉面</div>
+      <div class="wish-meta">
+        <span class="wish-place">五角场</span>
+        <span class="wish-amount">约 ¥25</span>
+      </div>
+      <div class="wish-note">“朋友说他家辣椒油很好吃”</div>
+      <div class="wish-source">收藏自 @momo ›</div>
+    </div>
+  </div>
+  <div class="wish-actions">
+    <span class="wish-link">我吃过了</span>
+    <span class="wish-link wish-link--danger">移除</span>
+    <button class="btn btn-primary btn-sm grow">安排到餐单</button>
+  </div>
+</div>
+</div>
+      
+    </div>
+    <figcaption>
+      <span class="cap-num">09</span>
+      <span class="cap-title">我的想吃</span>
+      <span class="cap-sub">私人饮食愿望清单</span>
+    </figcaption>
+  </figure>
+<figure class="phone-wrap" id="f-stats">
+    <div class="phone">
+      <div class="statusbar"><span class="sb-time">9:41</span><span class="sb-icons">●●●● ▮</span></div><div class="capsule"><span>···</span><i></i></div>
+      <div class="navbar">
+    <div class="nav-left"></div>
+    <div class="nav-title">消费统计</div>
+    <div class="nav-right"></div>
+  </div>
+      <div class="screen ">
+<div class="segment st-seg"><div class="segment-item">周</div><div class="segment-item segment-item--on">月</div><div class="segment-item">年</div></div>
+
+<div class="card st-total">
+  <div class="st-total-label">2026年10月</div>
+  <div class="st-total-value">¥341</div>
+  <div class="st-total-sub">共 18 顿 · 平均每顿 ¥18.94</div>
+</div>
+
+<div class="section">
+  <div class="section-head"><span class="section-title">每天趋势</span><span class="section-more">最高 65 元</span></div>
+  <div class="card st-chart">
+    <div class="st-bars">
+      <div class="st-bar">
+        <div class="st-bar-col"><div class="st-bar-value" style="height:94%"></div></div>
+        <span class="st-bar-label">1</span>
+      </div><div class="st-bar">
+        <div class="st-bar-col"><div class="st-bar-value" style="height:45%"></div></div>
+        <span class="st-bar-label"></span>
+      </div><div class="st-bar">
+        <div class="st-bar-col"><div class="st-bar-value" style="height:100%"></div></div>
+        <span class="st-bar-label"></span>
+      </div><div class="st-bar">
+        <div class="st-bar-col"><div class="st-bar-value" style="height:97%"></div></div>
+        <span class="st-bar-label"></span>
+      </div><div class="st-bar">
+        <div class="st-bar-col"><div class="st-bar-value" style="height:74%"></div></div>
+        <span class="st-bar-label">5</span>
+      </div><div class="st-bar">
+        <div class="st-bar-col"><div class="st-bar-value" style="height:77%"></div></div>
+        <span class="st-bar-label"></span>
+      </div><div class="st-bar">
+        <div class="st-bar-col"><div class="st-bar-value" style="height:38%"></div></div>
+        <span class="st-bar-label">7</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-head"><span class="section-title">餐次统计</span><span class="section-more">2026年10月</span></div>
+  <div class="card st-types">
+    <div class="st-type">
+      <div class="st-type-head">
+        <div class="st-type-left"><span>🌅</span><span class="st-type-label">早餐</span><span class="st-type-count">6 顿</span></div>
+        <div class="st-type-right"><span class="st-type-value">¥66</span><span class="st-type-percent">19%</span></div>
+      </div>
+      <div class="st-type-track"><div class="st-type-fill" style="width:19%"></div></div>
+    </div><div class="st-type">
+      <div class="st-type-head">
+        <div class="st-type-left"><span>☀️</span><span class="st-type-label">午餐</span><span class="st-type-count">6 顿</span></div>
+        <div class="st-type-right"><span class="st-type-value">¥127</span><span class="st-type-percent">37%</span></div>
+      </div>
+      <div class="st-type-track"><div class="st-type-fill" style="width:37%"></div></div>
+    </div><div class="st-type">
+      <div class="st-type-head">
+        <div class="st-type-left"><span>🌙</span><span class="st-type-label">晚餐</span><span class="st-type-count">6 顿</span></div>
+        <div class="st-type-right"><span class="st-type-value">¥148</span><span class="st-type-percent">43%</span></div>
+      </div>
+      <div class="st-type-track"><div class="st-type-fill" style="width:43%"></div></div>
+    </div>
+  </div>
+</div>
+
+<div class="st-tip">只统计「真实吃过 + 完成记录 + 填了实际金额」的饭记。餐单里的参考价和想吃的预计金额都不算。</div>
+</div>
+      
+    </div>
+    <figcaption>
+      <span class="cap-num">10</span>
+      <span class="cap-title">消费统计</span>
+      <span class="cap-sub">周 / 月 / 年 · 趋势与餐次占比</span>
+    </figcaption>
+  </figure>
+<figure class="phone-wrap" id="f-welcome">
+    <div class="phone">
+      <div class="statusbar"><span class="sb-time">9:41</span><span class="sb-icons">●●●● ▮</span></div><div class="capsule"><span>···</span><i></i></div>
+      <div class="navbar">
+    <div class="nav-left"></div>
+    <div class="nav-title">欢迎信</div>
+    <div class="nav-right"></div>
+  </div>
+      <div class="screen ">
+<div class="wl-head">
+  <img class="wl-logo" src="../assets/logo_main.png" alt="">
+  <div class="wl-title">给今天还不知道吃什么的你</div>
+  <div class="wl-sub">不用研究攻略，看看大家今天真的吃了什么</div>
+</div>
+<div class="wl-paper">
+  <p>嗨！我的朋友，到饭点了，想好吃什么了吗？</p>
+  <p>每次每次一到饭点，我说过，也听过最多的一句话，就是：</p>
+  <div class="wl-q">“待会儿吃什么？”</div>
+  <p>然后最怕空气突然安静下来。和朋友两两相望，但相顾无言，唯有“唉～”千声，哈哈哈。</p>
+  <p>“随便。” “都行。” “你定。” “那吃什么？”</p>
+  <p>于是又绕回了原点。</p>
+  <p>打开小某书，刷了半天——全是广告。打开大众点评，看见一家不错的，点进去一看人均——在下告辞。打开外卖软件，上下翻了好多遍——这不都吃过吗。</p>
+  <div class="wl-q">“如果吃饭这件事，可以简单一点就好了！”</div>
+  <p>我只需要看一眼：今天，和我一样生活着的人，都吃了些什么？</p>
+  <p>也许这些饭并不精致，也没有人专门给它们拍照、修图、写推荐语。但它们都是真的。</p>
+  <div class="wl-sign">那么——今天吃什么呢？</div>
+</div>
+<div class="wl-tip">这封信只出现这一次，以后可以在「我的 → 使用说明」里重新看。</div>
+<div class="wl-bar"><button class="btn btn-ghost">看看使用手册</button><button class="btn btn-primary">我自己逛逛 →</button></div>
+</div>
+      
+    </div>
+    <figcaption>
+      <span class="cap-num">11</span>
+      <span class="cap-title">欢迎信</span>
+      <span class="cap-sub">首次进入仅展示一次</span>
+    </figcaption>
+  </figure>
+</main>
+
+<footer class="bottom">
+  <div>共 11 个页面预览 · 由 <code>tools/buildPreview.js</code> 从数据层实时生成</div>
+  <div>完整页面清单：注册 · 位置 · 欢迎信 · 首页 · 随机帮我选 · 记一顿 · 饭记详情 · 作者主页 · 我的 · 我的饭历 · 我的餐单 · 我的想吃 · 想吃录入 · 我跟吃的人 · 消费统计 · 使用说明与设置</div>
+</footer>
+</body>
+</html>

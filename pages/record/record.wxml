@@ -1,0 +1,288 @@
+<view class="page">
+  <!-- 餐次：系统按时间预填，随时可改 -->
+  <view class="meal-tabs rec-tabs">
+    <view
+      wx:for="{{mealTypes}}"
+      wx:key="key"
+      class="meal-tab {{mealType === item.key ? 'meal-tab--on' : ''}}"
+      data-key="{{item.key}}"
+      bindtap="switchMeal"
+    >
+      {{item.label}}
+    </view>
+  </view>
+
+  <!-- 实际用餐时间：系统预填，可改以支持补记 -->
+  <view class="rec-time" bindtap="openTime">
+    <text class="rec-time__clock">🕒</text>
+    <text class="rec-time__text">{{timeSummary}}</text>
+    <text class="rec-time__caret">›</text>
+  </view>
+
+  <!-- 饭名（必填） -->
+  <view class="field">
+    <view class="field__label">今天吃了什么？</view>
+    <input
+      class="input"
+      maxlength="20"
+      placeholder="例如：番茄肥牛饭"
+      placeholder-class="input__ph"
+      value="{{name}}"
+      bindinput="onName"
+    />
+  </view>
+
+  <!-- 图片（选填，没有照片也能记） -->
+  <view class="rec-images">
+    <view
+      class="rec-img"
+      wx:for="{{images}}"
+      wx:key="index"
+      data-src="{{item}}"
+      bindtap="previewImage"
+    >
+      <image class="rec-img__pic" src="{{item}}" mode="aspectFill" />
+      <view class="rec-img__del" data-index="{{index}}" catchtap="removeImage">✕</view>
+    </view>
+    <view class="rec-img rec-img--add" wx:if="{{images.length < 3}}" bindtap="chooseImage">
+      <text class="rec-img__plus">＋</text>
+      <text class="rec-img__label">添加照片</text>
+      <text class="rec-img__opt">（可选）</text>
+    </view>
+  </view>
+
+  <!-- 金额 -->
+  <view class="field">
+    <view class="field__label">金额</view>
+    <view class="rec-amount {{amountUnknown ? 'rec-amount--off' : ''}}">
+      <text class="rec-amount__sign">¥</text>
+      <input
+        class="rec-amount__input"
+        type="digit"
+        disabled="{{amountUnknown}}"
+        placeholder="例如 22"
+        placeholder-class="input__ph"
+        value="{{amount}}"
+        bindinput="onAmount"
+      />
+      <view class="rec-amount__unknown {{amountUnknown ? 'rec-amount__unknown--on' : ''}}" bindtap="toggleAmountUnknown">
+        {{amountUnknown ? '✓ ' : ''}}不记金额
+      </view>
+    </view>
+    <view class="rec-hint-inline">填了金额，就能自动生成你的周 / 月 / 年吃饭消费总结。</view>
+  </view>
+
+  <!-- 感受（选填，可单独设置是否公开） -->
+  <view class="field">
+    <view class="field__label">今天这顿感觉怎么样？（可选）</view>
+    <textarea
+      class="input input--area"
+      maxlength="{{moodMax}}"
+      placeholder="写一句也行，不写也行……"
+      placeholder-class="input__ph"
+      value="{{moodText}}"
+      bindinput="onMood"
+    />
+    <view class="counter">{{moodText.length}}/{{moodMax}}</view>
+  </view>
+
+  <!-- 地点：主表单不放大输入框，轻量一行 -->
+  <view class="rec-row" bindtap="openLoc">
+    <view class="rec-row__left">
+      <text class="rec-row__icon">📍</text>
+      <block wx:if="{{locMode === 'exact'}}">
+        <text class="rec-row__text">{{placeName || '已关联当前位置'}}</text>
+      </block>
+      <block wx:elif="{{locMode === 'fuzzy'}}">
+        <text class="rec-row__text">已关联 {{regionName}}</text>
+      </block>
+      <block wx:elif="{{locMode === 'hidden'}}">
+        <text class="rec-row__text">已关联位置 · 不公开</text>
+      </block>
+      <block wx:else>
+        <text class="rec-row__text rec-row__text--muted">不使用位置</text>
+      </block>
+    </view>
+    <text class="rec-row__caret">›</text>
+  </view>
+
+  <!-- 发布设置（默认收起） -->
+  <view class="rec-settings">
+    <view class="rec-row rec-row--settings" bindtap="toggleSettings">
+      <view class="rec-row__left">
+        <text class="rec-row__icon">⚙️</text>
+        <text class="rec-row__text">发布设置</text>
+      </view>
+      <view class="rec-row__left">
+        <text class="rec-row__sum">{{publishSummary}}</text>
+        <text class="rec-row__caret">{{settingsOpen ? '⌃' : '›'}}</text>
+      </view>
+    </view>
+
+    <view class="rec-settings__body anim-up" wx:if="{{settingsOpen}}">
+      <view class="perm">
+        <view class="perm__label">饭记可见范围</view>
+        <view class="chips">
+          <view
+            wx:for="{{mealVisibilityOpts}}"
+            wx:key="key"
+            class="chip {{visibility === item.key ? 'chip--on' : ''}}"
+            data-key="{{item.key}}"
+            bindtap="pickVisibility"
+          >
+            {{item.label}}
+          </view>
+        </view>
+      </view>
+
+      <view class="perm">
+        <view class="perm__label">地点可见范围</view>
+        <view class="chips">
+          <view
+            wx:for="{{locVisibilityOpts}}"
+            wx:key="key"
+            class="chip {{locMode === item.key ? 'chip--on' : ''}}"
+            data-key="{{item.key}}"
+            bindtap="pickLocMode"
+          >
+            {{item.label}}
+          </view>
+          <view class="chip {{locMode === 'none' ? 'chip--on' : ''}}" data-key="none" bindtap="pickLocMode">
+            不使用位置
+          </view>
+        </view>
+      </view>
+
+      <view class="perm">
+        <view class="perm__label">感受可见范围</view>
+        <view class="chips">
+          <view
+            wx:for="{{moodVisibilityOpts}}"
+            wx:key="key"
+            class="chip {{moodVisibility === item.key ? 'chip--on' : ''}}"
+            data-key="{{item.key}}"
+            bindtap="pickMoodVisibility"
+          >
+            {{item.label}}
+          </view>
+        </view>
+      </view>
+
+      <view class="perm__tip">三类权限相互独立：饭记公开不会连带公开你的地点和感受。</view>
+    </view>
+  </view>
+
+  <view class="rec-hint">
+    饭流、饭历和消费统计都按你填的「实际用餐时间」归档，所以晚上也能补记中午那一顿。
+  </view>
+
+  <!-- 主按钮：不使用「发布」文案 -->
+  <button
+    class="btn btn--primary btn--block rec-submit {{canSubmit ? '' : 'btn--disabled'}}"
+    bindtap="submit"
+  >
+    记下这一顿
+  </button>
+</view>
+
+<!-- 时间选择 -->
+<view class="mask" wx:if="{{timeSheet}}" bindtap="closeTime"></view>
+<view class="sheet anim-up" wx:if="{{timeSheet}}">
+  <view class="sheet__title">这一顿是什么时候吃的</view>
+  <view class="sheet__desc">系统按实际用餐时间归档，不是上传时间</view>
+
+  <picker mode="date" value="{{dateStr}}" start="{{minDate}}" end="{{maxDate}}" bindchange="onDateChange">
+    <view class="pick-row">
+      <text class="pick-row__k">日期</text>
+      <text class="pick-row__v">{{dateStr}} ›</text>
+    </view>
+  </picker>
+
+  <picker mode="time" value="{{timeStr}}" bindchange="onTimeChange">
+    <view class="pick-row">
+      <text class="pick-row__k">时间</text>
+      <text class="pick-row__v">{{timeStr}} ›</text>
+    </view>
+  </picker>
+
+  <view class="pick-row pick-row--auto">
+    <text class="pick-row__k">餐次</text>
+    <text class="pick-row__v">{{mealType === 'breakfast' ? '早餐' : mealType === 'lunch' ? '午餐' : '晚餐'}}（自动判断，可上面切换）</text>
+  </view>
+
+  <button class="btn btn--primary btn--block" bindtap="confirmTime" style="margin-top: 24rpx;">确定</button>
+</view>
+
+<!-- 地点设置 -->
+<view class="mask" wx:if="{{locSheet}}" bindtap="closeLoc"></view>
+<view class="sheet anim-up" wx:if="{{locSheet}}">
+  <view class="sheet__title">这一顿的位置</view>
+  <view class="sheet__desc">系统用它做附近匹配，和「对外公开多少」是两件事</view>
+
+  <view
+    class="loc-opt {{locMode === 'exact' ? 'loc-opt--on' : ''}}"
+    data-key="exact"
+    bindtap="pickLocMode"
+  >
+    <view>
+      <view class="loc-opt__name">具体地点</view>
+      <view class="loc-opt__desc">显示食堂 / 店铺名称</view>
+    </view>
+    <text class="loc-opt__check">{{locMode === 'exact' ? '✓' : ''}}</text>
+  </view>
+
+  <view
+    class="loc-opt {{locMode === 'fuzzy' ? 'loc-opt--on' : ''}}"
+    data-key="fuzzy"
+    bindtap="pickLocMode"
+  >
+    <view>
+      <view class="loc-opt__name">模糊区域</view>
+      <view class="loc-opt__desc">只显示「{{regionName}}」这一级</view>
+    </view>
+    <text class="loc-opt__check">{{locMode === 'fuzzy' ? '✓' : ''}}</text>
+  </view>
+
+  <view
+    class="loc-opt {{locMode === 'hidden' ? 'loc-opt--on' : ''}}"
+    data-key="hidden"
+    bindtap="pickLocMode"
+  >
+    <view>
+      <view class="loc-opt__name">不公开</view>
+      <view class="loc-opt__desc">别人看不到地点，但仍可参与附近匹配</view>
+    </view>
+    <text class="loc-opt__check">{{locMode === 'hidden' ? '✓' : ''}}</text>
+  </view>
+
+  <view
+    class="loc-opt {{locMode === 'none' ? 'loc-opt--on' : ''}}"
+    data-key="none"
+    bindtap="pickLocMode"
+  >
+    <view>
+      <view class="loc-opt__name">不使用位置</view>
+      <view class="loc-opt__desc">这顿不进入基于距离的附近饭流</view>
+    </view>
+    <text class="loc-opt__check">{{locMode === 'none' ? '✓' : ''}}</text>
+  </view>
+
+  <input
+    wx:if="{{locMode === 'exact'}}"
+    class="input loc-opt__input"
+    placeholder="写一下具体店名 / 食堂（可选）"
+    placeholder-class="input__ph"
+    value="{{placeName}}"
+    bindinput="onPlaceName"
+  />
+
+  <button class="btn btn--primary btn--block" bindtap="confirmLoc" style="margin-top: 24rpx;">确定</button>
+</view>
+
+<!-- 成功反馈（轻量柴犬动画） -->
+<view class="mask" wx:if="{{success}}"></view>
+<view class="rec-done anim-pop" wx:if="{{success}}">
+  <image class="rec-done__dog anim-shake" src="/assets/logo_main.png" mode="aspectFit" />
+  <view class="rec-done__title">记下啦</view>
+  <view class="rec-done__sub">{{lastMeal.name}}</view>
+</view>

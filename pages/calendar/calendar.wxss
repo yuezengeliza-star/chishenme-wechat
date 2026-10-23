@@ -1,0 +1,231 @@
+/* 顶部汇总 */
+.cal-head {
+  margin-top: 28rpx;
+  padding: 24rpx 28rpx 28rpx;
+}
+
+.cal-head__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 20rpx;
+  border-bottom: 1rpx solid var(--divider);
+}
+
+.cal-nav {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: 50%;
+  background: #F6F1EC;
+  color: var(--text);
+  font-size: 34rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.cal-nav--off {
+  opacity: 0.32;
+}
+
+.cal-head__month {
+  font-size: 34rpx;
+  font-weight: 600;
+}
+
+.cal-head__stat {
+  display: flex;
+  margin-top: 24rpx;
+}
+
+.cal-stat {
+  flex: 1;
+}
+
+.cal-stat__label {
+  font-size: 23rpx;
+  color: var(--text2);
+}
+
+.cal-stat__value {
+  font-size: 38rpx;
+  font-weight: 600;
+  margin-top: 6rpx;
+}
+
+.cal-stat__value--primary {
+  color: var(--primary);
+}
+
+/* 月历 */
+.cal {
+  margin-top: 24rpx;
+  padding: 24rpx 16rpx 20rpx;
+}
+
+.cal__week {
+  display: flex;
+}
+
+.cal__week-cell {
+  width: 14.2857%;
+  text-align: center;
+  font-size: 22rpx;
+  color: var(--text3);
+  padding-bottom: 12rpx;
+}
+
+.cal__grid {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.cal__cell {
+  width: 14.2857%;
+  height: 92rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.cal__day {
+  font-size: 26rpx;
+  color: var(--text);
+  line-height: 1.1;
+  width: 60rpx;
+  height: 60rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cal__cell--empty {
+  opacity: 0;
+}
+
+.cal__cell--today .cal__day {
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.cal__cell--on .cal__day {
+  background: var(--primary);
+  color: #fff;
+  font-weight: 600;
+}
+
+.cal__dots {
+  height: 14rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cal__dot {
+  width: 8rpx;
+  height: 8rpx;
+  border-radius: 50%;
+  background: var(--sage);
+}
+
+.cal__cell--on .cal__dot {
+  background: #fff;
+}
+
+/* 选中日详情 */
+.day {
+  margin-top: 24rpx;
+  padding: 0 28rpx;
+}
+
+.day__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 28rpx 0 20rpx;
+  border-bottom: 1rpx solid var(--divider);
+}
+
+.day__date {
+  font-size: 32rpx;
+  font-weight: 600;
+}
+
+.day__total {
+  font-size: 26rpx;
+  color: var(--primary);
+  font-weight: 500;
+}
+
+.day__total--none {
+  color: var(--text3);
+  font-weight: 400;
+}
+
+.day__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24rpx 0;
+  border-bottom: 1rpx solid var(--divider);
+}
+
+.day__row:last-child {
+  border-bottom: none;
+}
+
+.day__row-left {
+  display: flex;
+  align-items: center;
+  gap: 18rpx;
+  min-width: 0;
+}
+
+.day__emoji {
+  font-size: 34rpx;
+}
+
+.day__type {
+  font-size: 22rpx;
+  color: var(--text2);
+}
+
+.day__name {
+  font-size: 29rpx;
+  margin-top: 4rpx;
+}
+
+.day__row-right {
+  display: flex;
+  align-items: center;
+}
+
+.day__amount {
+  font-size: 28rpx;
+  color: var(--text);
+  font-weight: 500;
+}
+
+.day__amount--none {
+  font-size: 22rpx;
+  color: var(--text3);
+  font-weight: 400;
+}
+
+.day__tip {
+  font-size: 21rpx;
+  color: var(--text3);
+  padding: 20rpx 0 28rpx;
+  line-height: 1.7;
+}
+
+.cal__empty {
+  text-align: center;
+  font-size: 24rpx;
+  color: var(--text3);
+  padding: 60rpx 0;
+}

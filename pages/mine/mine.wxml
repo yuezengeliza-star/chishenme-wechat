@@ -1,0 +1,86 @@
+<view class="page">
+  <!-- 1. 头像 + 昵称 + 等级 -->
+  <view class="me card">
+    <view
+      class="avatar avatar--lg"
+      style="background: linear-gradient(140deg, {{me.avatarColor1}} 0%, {{me.avatarColor2}} 100%);"
+    >
+      <image wx:if="{{me.hasAvatarImage}}" class="me__avatar-img" src="{{me.avatarUrl}}" mode="aspectFill" />
+      <text wx:else>{{me.avatarDisplay}}</text>
+    </view>
+    <view class="grow">
+      <view class="me__name">{{me.nickname}}</view>
+      <view class="me__sub">
+        <text class="level">{{me.levelText}}</text>
+        <text class="me__count">已记录 {{me.recordCount}} 顿</text>
+      </view>
+      <view class="me__bio" wx:if="{{me.bio}}">{{me.bio}}</view>
+    </view>
+    <view class="me__edit" bindtap="editProfile">编辑资料</view>
+  </view>
+
+  <!-- 2. 今日状态 -->
+  <view class="section">
+    <view class="section__head">
+      <text class="section__title">今天</text>
+      <text class="section__more">已记录 {{today.count}} 顿 · {{today.totalText}}</text>
+    </view>
+
+    <view class="today card">
+      <view
+        class="today__slot {{item.recorded ? 'today__slot--on' : ''}}"
+        wx:for="{{today.slots}}"
+        wx:key="mealType"
+        data-index="{{index}}"
+        data-recorded="{{item.recorded}}"
+        bindtap="onSlotTap"
+      >
+        <text class="today__emoji">{{item.emoji}}</text>
+        <text class="today__label">{{item.label}}</text>
+        <text class="today__name">{{item.name}}</text>
+        <text class="today__amount" wx:if="{{item.amountText}}">{{item.amountText}}</text>
+      </view>
+    </view>
+
+    <view class="today__hint">{{today.pendingText}}</view>
+  </view>
+
+  <!-- 3. 本月消费 -->
+  <view class="month card" bindtap="goStats" hover-class="card--hover">
+    <view class="grow">
+      <view class="month__label">本月吃饭</view>
+      <view class="month__value">{{monthTotalText}}</view>
+    </view>
+    <view class="month__right">
+      <text class="month__more">周 / 月 / 年</text>
+      <text class="cell-arrow">›</text>
+    </view>
+  </view>
+
+  <!-- 4. 二级入口 -->
+  <view class="section">
+    <view class="entry card">
+      <view
+        class="entry__row"
+        wx:for="{{entries}}"
+        wx:key="key"
+        data-url="{{item.url}}"
+        bindtap="goEntry"
+      >
+        <text class="entry__icon">{{item.icon}}</text>
+        <view class="grow">
+          <view class="entry__title">{{item.title}}</view>
+          <view class="entry__desc">{{item.desc}}</view>
+        </view>
+        <text class="cell-arrow">›</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 5. 使用说明 / 设置 -->
+  <view class="foot">
+    <text class="foot__link" bindtap="goSettings">使用说明</text>
+    <text class="foot__dot">·</text>
+    <text class="foot__link" bindtap="goSettings">设置</text>
+  </view>
+</view>

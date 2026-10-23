@@ -1,0 +1,219 @@
+/* 首次进入流程共用样式（注册 / 位置 / 欢迎信） */
+
+.ob {
+  padding-top: 40rpx;
+}
+
+.ob__brand {
+  text-align: center;
+  margin-bottom: 36rpx;
+}
+
+.ob__logo {
+  width: 200rpx;
+  height: 200rpx;
+}
+
+.ob__slogan {
+  font-size: 24rpx;
+  color: var(--text2);
+  margin-top: 4rpx;
+}
+
+.ob__card {
+  padding: 36rpx 32rpx;
+}
+
+.ob__title {
+  font-size: 36rpx;
+  font-weight: 600;
+}
+
+.ob__desc {
+  font-size: 24rpx;
+  color: var(--text2);
+  margin-top: 10rpx;
+  line-height: 1.6;
+}
+
+.ob__steps {
+  display: flex;
+  justify-content: center;
+  gap: 14rpx;
+  margin-top: 48rpx;
+}
+
+.ob__dot {
+  width: 14rpx;
+  height: 14rpx;
+  border-radius: 50%;
+  background: var(--divider);
+}
+
+.ob__dot--on {
+  width: 36rpx;
+  border-radius: 999rpx;
+  background: var(--primary);
+}
+
+/* 头像 */
+.ob__avatar-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 36rpx 0 8rpx;
+}
+
+.ob__avatar-preview {
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: 50%;
+  background: linear-gradient(150deg, #FFEFE1 0%, #FFD8B5 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border: 4rpx solid #fff;
+  box-shadow: 0 6rpx 18rpx rgba(255, 139, 61, 0.16);
+}
+
+.ob__avatar-img {
+  width: 100%;
+  height: 100%;
+}
+
+.ob__avatar-emoji {
+  font-size: 76rpx;
+  line-height: 1;
+}
+
+.ob__upload {
+  margin-top: 22rpx;
+}
+
+.ob__preset-label {
+  font-size: 24rpx;
+  color: var(--text2);
+  text-align: center;
+  margin: 34rpx 0 18rpx;
+}
+
+.ob__presets {
+  display: flex;
+  justify-content: center;
+  gap: 18rpx;
+}
+
+.ob__preset {
+  width: 88rpx;
+  height: 88rpx;
+  border-radius: 50%;
+  background: #F6F1EC;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 3rpx solid transparent;
+}
+
+.ob__preset--on {
+  border-color: var(--primary);
+  background: var(--apricot-soft);
+}
+
+.ob__preset-emoji {
+  font-size: 40rpx;
+  line-height: 1;
+}
+
+.ob__preset-img {
+  width: 88rpx;
+  height: 88rpx;
+  border-radius: 50%;
+  display: block;
+}
+
+.ob__skip {
+  text-align: center;
+  font-size: 26rpx;
+  color: var(--text3);
+  margin-top: 28rpx;
+  padding: 12rpx 0;
+}
+
+/* 区域选择 */
+.ob__regions {
+  margin-top: 8rpx;
+}
+
+.ob__region {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 26rpx 24rpx;
+  border-radius: 20rpx;
+  border: 1rpx solid var(--divider);
+  margin-bottom: 16rpx;
+  background: var(--card);
+}
+
+.ob__region--on {
+  border-color: var(--primary);
+  background: var(--primary-soft);
+}
+
+.ob__region-name {
+  font-size: 30rpx;
+}
+
+.ob__region-sub {
+  font-size: 22rpx;
+  color: var(--text2);
+  margin-top: 4rpx;
+}
+
+.ob__check {
+  width: 40rpx;
+  height: 40rpx;
+  border-radius: 50%;
+  border: 2rpx solid var(--divider);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 24rpx;
+}
+
+.ob__check--on {
+  background: var(--primary);
+  border-color: var(--primary);
+}
+
+/* 隐私说明条 */
+.ob__note {
+  display: flex;
+  gap: 16rpx;
+  padding: 24rpx;
+  border-radius: 20rpx;
+  background: var(--sage-soft);
+  margin-bottom: 28rpx;
+}
+
+.ob__note-icon {
+  font-size: 32rpx;
+  line-height: 1.3;
+}
+
+.ob__note-text {
+  font-size: 24rpx;
+  color: #5C7A52;
+  line-height: 1.65;
+  flex: 1;
+}
+
+.ob__note-text--coral {
+  color: #B4644F;
+}
+
+.ob__note--coral {
+  background: #FDEDE9;
+}

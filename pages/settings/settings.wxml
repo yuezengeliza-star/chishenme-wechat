@@ -1,0 +1,108 @@
+<view class="page">
+  <view class="segment st2-seg">
+    <view class="segment__item {{tab === 'manual' ? 'segment__item--on' : ''}}" data-tab="manual" bindtap="switchTab">
+      使用说明
+    </view>
+    <view class="segment__item {{tab === 'setting' ? 'segment__item--on' : ''}}" data-tab="setting" bindtap="switchTab">
+      设置
+    </view>
+  </view>
+
+  <!-- 使用说明 -->
+  <block wx:if="{{tab === 'manual'}}">
+    <view class="st2-lead card card--soft">
+      这不是一份必须读完的说明书。想看就看，不想看也可以直接去逛。
+    </view>
+
+    <view class="st2-list">
+      <view class="st2-item card" wx:for="{{manual}}" wx:key="title">
+        <view class="st2-item__head" data-index="{{index}}" bindtap="toggle">
+          <text class="st2-item__title">{{item.title}}</text>
+          <text class="st2-item__caret">{{openIndex === index ? '⌃' : '⌄'}}</text>
+        </view>
+        <view class="st2-item__body anim-up" wx:if="{{openIndex === index}}">{{item.body}}</view>
+      </view>
+    </view>
+
+    <view class="card st2-about">
+      <view class="st2-about__title">{{about.title}}</view>
+      <view class="st2-about__body">{{about.body}}</view>
+      <image class="st2-about__logo" src="/assets/logo_main.png" mode="aspectFit" />
+    </view>
+
+    <view class="st2-link" bindtap="readLetter">重看一遍欢迎信 ›</view>
+  </block>
+
+  <!-- 设置 -->
+  <block wx:else>
+    <view class="st2-group card">
+      <view class="st2-row" bindtap="openRegion">
+        <view class="st2-row__left">
+          <text class="st2-row__label">我的区域</text>
+          <text class="st2-row__sub">用于匹配附近约 3km 的饭记</text>
+        </view>
+        <view class="st2-row__right">
+          <text class="st2-row__value">{{me.region || '未选择'}}</text>
+          <text class="cell-arrow">›</text>
+        </view>
+      </view>
+
+      <view class="st2-row" bindtap="renderRules">
+        <view class="st2-row__left">
+          <text class="st2-row__label">隐私与公开规则</text>
+          <text class="st2-row__sub">三类权限相互独立</text>
+        </view>
+        <text class="cell-arrow">›</text>
+      </view>
+
+      <view class="st2-row" bindtap="readLetter">
+        <view class="st2-row__left">
+          <text class="st2-row__label">欢迎信</text>
+          <text class="st2-row__sub">给今天还不知道吃什么的你</text>
+        </view>
+        <text class="cell-arrow">›</text>
+      </view>
+    </view>
+
+    <view class="st2-group card">
+      <view class="st2-row" bindtap="resetDemo">
+        <view class="st2-row__left">
+          <text class="st2-row__label">重置演示数据</text>
+          <text class="st2-row__sub">恢复初始假数据，重新走一遍完整流程</text>
+        </view>
+        <text class="cell-arrow">›</text>
+      </view>
+    </view>
+  </block>
+</view>
+
+<!-- 区域选择 -->
+<view class="mask" wx:if="{{regionSheet}}" bindtap="closeRegion"></view>
+<view class="sheet anim-up" wx:if="{{regionSheet}}">
+  <view class="sheet__title">你在哪儿吃饭</view>
+  <view class="sheet__desc">位置用于匹配，不等于对外公开</view>
+
+  <view class="st2-region {{me.regionKey === 'gps' ? 'st2-region--on' : ''}}" bindtap="useGps">
+    <view>
+      <view class="st2-region__name">📍 使用我的当前位置</view>
+      <view class="st2-region__sub">用于匹配附近约 3km 的真实饭记</view>
+    </view>
+    <text class="st2-region__check">{{me.regionKey === 'gps' ? '✓' : ''}}</text>
+  </view>
+
+  <view
+    wx:for="{{regions}}"
+    wx:key="key"
+    class="st2-region {{me.regionKey === item.key ? 'st2-region--on' : ''}}"
+    data-key="{{item.key}}"
+    bindtap="pickRegion"
+  >
+    <view>
+      <view class="st2-region__name">{{item.name}}</view>
+      <view class="st2-region__sub">{{item.sub}}</view>
+    </view>
+    <text class="st2-region__check">{{me.regionKey === item.key ? '✓' : ''}}</text>
+  </view>
+
+  <view class="sheet__close" bindtap="closeRegion">取消</view>
+</view>

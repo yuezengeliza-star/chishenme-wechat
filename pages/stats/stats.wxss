@@ -1,0 +1,171 @@
+.st-seg {
+  margin-top: 28rpx;
+}
+
+/* 总金额 */
+.st-total {
+  margin-top: 24rpx;
+  background: linear-gradient(135deg, #FFF3E8 0%, #FFE8D3 100%);
+  border-color: transparent;
+}
+
+.st-total__label {
+  font-size: 24rpx;
+  color: var(--text2);
+}
+
+.st-total__value {
+  font-size: 68rpx;
+  font-weight: 600;
+  color: var(--primary);
+  margin-top: 8rpx;
+  line-height: 1.15;
+}
+
+.st-total__sub {
+  font-size: 23rpx;
+  color: var(--text2);
+  margin-top: 10rpx;
+}
+
+/* 趋势图 */
+.st-chart {
+  padding: 28rpx 20rpx 16rpx;
+}
+
+.st-chart__scroll {
+  width: 100%;
+}
+
+.st-chart__bars {
+  display: flex;
+  align-items: flex-end;
+  height: 320rpx;
+}
+
+.st-chart__bars--dense .st-bar {
+  flex: 0 0 auto;
+  width: 44rpx;
+}
+
+.st-bar {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  height: 320rpx;
+}
+
+.st-bar__col {
+  width: 100%;
+  height: 258rpx;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.st-bar__value {
+  width: 62%;
+  max-width: 26rpx;
+  border-radius: 8rpx 8rpx 0 0;
+  background: linear-gradient(180deg, #FFA45E 0%, #FF8B3D 100%);
+}
+
+.st-bar__label {
+  height: 32rpx;
+  line-height: 32rpx;
+  font-size: 18rpx;
+  color: var(--text3);
+  margin-top: 8rpx;
+}
+
+.st-empty {
+  padding: 60rpx 28rpx;
+  text-align: center;
+}
+
+.st-empty__text {
+  font-size: 24rpx;
+  color: var(--text3);
+  line-height: 1.8;
+}
+
+/* 餐次统计 */
+.st-types {
+  padding: 8rpx 28rpx;
+}
+
+.st-type {
+  padding: 26rpx 0;
+  border-bottom: 1rpx solid var(--divider);
+}
+
+.st-type:last-child {
+  border-bottom: none;
+}
+
+.st-type__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.st-type__left {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+}
+
+.st-type__emoji {
+  font-size: 28rpx;
+}
+
+.st-type__label {
+  font-size: 29rpx;
+}
+
+.st-type__count {
+  font-size: 21rpx;
+  color: var(--text3);
+}
+
+.st-type__right {
+  display: flex;
+  align-items: baseline;
+  gap: 14rpx;
+}
+
+.st-type__value {
+  font-size: 30rpx;
+  font-weight: 600;
+}
+
+.st-type__percent {
+  font-size: 22rpx;
+  color: var(--text2);
+  width: 62rpx;
+  text-align: right;
+}
+
+.st-type__track {
+  height: 12rpx;
+  border-radius: 6rpx;
+  background: #F3ECE5;
+  margin-top: 16rpx;
+  overflow: hidden;
+}
+
+.st-type__fill {
+  height: 100%;
+  border-radius: 6rpx;
+  background: linear-gradient(90deg, #FFD8B5 0%, #FF8B3D 100%);
+}
+
+.st-tip {
+  font-size: 21rpx;
+  color: var(--text3);
+  line-height: 1.8;
+  margin: 36rpx 8rpx 20rpx;
+  text-align: center;
+}

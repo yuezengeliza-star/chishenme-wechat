@@ -1,0 +1,94 @@
+.wl {
+  min-height: 100vh;
+  background: var(--bg);
+  padding: 24rpx 32rpx 240rpx;
+}
+
+.wl__head {
+  text-align: center;
+  padding: 32rpx 0 40rpx;
+}
+
+.wl__logo {
+  width: 180rpx;
+  height: 180rpx;
+}
+
+.wl__title {
+  font-size: 40rpx;
+  font-weight: 600;
+  margin-top: 12rpx;
+  letter-spacing: 1rpx;
+}
+
+.wl__sub {
+  font-size: 24rpx;
+  color: var(--text2);
+  margin-top: 12rpx;
+}
+
+.wl__paper {
+  background: var(--card);
+  border: 1rpx solid var(--divider);
+  border-radius: 24rpx;
+  padding: 40rpx 32rpx;
+}
+
+.wl__p {
+  font-size: 29rpx;
+  line-height: 2;
+  color: #5A463A;
+  margin-bottom: 22rpx;
+  text-align: justify;
+}
+
+.wl__p:last-child {
+  margin-bottom: 0;
+}
+
+.wl__q {
+  font-size: 30rpx;
+  line-height: 1.9;
+  color: var(--primary);
+  font-weight: 500;
+  padding: 4rpx 0 4rpx 24rpx;
+  border-left: 6rpx solid var(--apricot);
+  margin: 24rpx 0;
+}
+
+.wl__sign {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: var(--text);
+  text-align: right;
+  margin-top: 32rpx;
+  padding-top: 28rpx;
+  border-top: 1rpx dashed var(--divider);
+}
+
+.wl__tip {
+  font-size: 22rpx;
+  color: var(--text3);
+  text-align: center;
+  margin-top: 28rpx;
+  line-height: 1.7;
+}
+
+.wl__bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  gap: 20rpx;
+  padding: 20rpx 32rpx calc(28rpx + env(safe-area-inset-bottom));
+  background: rgba(255, 248, 241, 0.96);
+  backdrop-filter: blur(20rpx);
+  border-top: 1rpx solid var(--divider);
+  z-index: 20;
+}
+
+.wl__bar-btn {
+  flex: 1;
+  font-size: 28rpx;
+}

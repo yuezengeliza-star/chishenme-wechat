@@ -1,0 +1,61 @@
+<view class="page page--flat ob">
+  <view class="ob__brand">
+    <image class="ob__logo" src="/assets/logo_main.png" mode="aspectFit" />
+    <view class="ob__slogan">看看大家今天真的吃了什么</view>
+  </view>
+
+  <view class="ob__card card">
+    <view class="ob__title">先给自己起个名字</view>
+    <view class="ob__desc">不需要真实姓名、年龄、性别或学校，随便叫什么都行。</view>
+
+    <view class="ob__avatar-wrap">
+      <view class="ob__avatar-preview">
+        <image
+          wx:if="{{avatarUrl}}"
+          class="ob__avatar-img"
+          src="{{avatarUrl}}"
+          mode="aspectFill"
+        />
+        <text wx:else class="ob__avatar-emoji">{{avatarEmoji}}</text>
+      </view>
+    </view>
+
+    <view class="ob__preset-label">选一个头像</view>
+    <view class="ob__presets">
+      <view
+        wx:for="{{avatarOptions}}"
+        wx:key="*this"
+        class="ob__preset {{avatarUrl === item ? 'ob__preset--on' : ''}}"
+        data-src="{{item}}"
+        bindtap="chooseAvatarImage"
+      >
+        <image class="ob__preset-img" src="{{item}}" mode="aspectFill" />
+      </view>
+    </view>
+
+    <view class="field" style="margin-top: 36rpx;">
+      <view class="field__label">昵称</view>
+      <input
+        class="input"
+        type="nickname"
+        maxlength="12"
+        placeholder="比如：小鱼"
+        placeholder-class="input__ph"
+        value="{{nickname}}"
+        bindinput="onNickname"
+        bindblur="onNickname"
+      />
+    </view>
+
+    <button class="btn btn--primary btn--block {{canNext ? '' : 'btn--disabled'}}" bindtap="next">
+      {{editing ? '保存' : '下一步'}}
+    </button>
+    <view class="ob__skip" wx:if="{{!editing}}" bindtap="notNow">先随便看看，稍后再设置</view>
+  </view>
+
+  <view class="ob__steps" wx:if="{{!editing}}">
+    <view class="ob__dot ob__dot--on"></view>
+    <view class="ob__dot"></view>
+    <view class="ob__dot"></view>
+  </view>
+</view>

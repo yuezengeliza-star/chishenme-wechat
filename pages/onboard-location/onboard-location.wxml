@@ -1,0 +1,63 @@
+<view class="page page--flat ob">
+  <view class="ob__brand">
+    <image class="ob__logo" src="/assets/logo_main.png" mode="aspectFit" />
+    <view class="ob__slogan">看看大家今天真的吃了什么</view>
+  </view>
+
+  <view class="ob__card card">
+    <view class="ob__title">你在哪儿吃饭？</view>
+    <view class="ob__desc">我们会优先给你看附近约 3km 内大家刚吃过的饭。不开定位也能用。</view>
+
+    <view class="ob__note" style="margin-top: 28rpx;">
+      <text class="ob__note-icon">🔒</text>
+      <view class="ob__note-text">
+        <text class="ob__note-strong">系统用于匹配的位置 ≠ 对外公开的位置。</text>
+        定位只用来帮你找附近的饭记，你自己的每一顿都可以单独决定要不要公开地点。
+      </view>
+    </view>
+
+    <view class="ob__region {{useGps ? 'ob__region--on' : ''}}" bindtap="useMyLocation">
+      <view>
+        <view class="ob__region-name">📍 使用我的当前位置</view>
+        <view class="ob__region-sub">{{useGps ? '已开启，附近约 3km' : '开启后优先推荐附近的真实饭记'}}</view>
+      </view>
+      <view class="ob__check {{useGps ? 'ob__check--on' : ''}}">{{useGps ? '✓' : ''}}</view>
+    </view>
+
+    <view class="ob__region {{regionKey === 'custom' ? 'ob__region--on' : ''}}" bindtap="pickOnMap">
+      <view>
+        <view class="ob__region-name">🗺️ 在地图上选一个地方</view>
+        <view class="ob__region-sub">{{customName ? '已选：' + customName : '任意城市、商圈、园区都能选'}}</view>
+      </view>
+      <view class="ob__check {{regionKey === 'custom' ? 'ob__check--on' : ''}}">{{regionKey === 'custom' ? '✓' : ''}}</view>
+    </view>
+
+    <view class="ob__preset-label" style="text-align: left; margin-top: 34rpx;">或者从常吃饭的地方里快速选</view>
+
+    <view class="ob__regions">
+      <view
+        wx:for="{{regions}}"
+        wx:key="key"
+        class="ob__region {{regionKey === item.key ? 'ob__region--on' : ''}}"
+        data-key="{{item.key}}"
+        bindtap="pickRegion"
+      >
+        <view>
+          <view class="ob__region-name">{{item.name}}</view>
+          <view class="ob__region-sub">{{item.sub}}</view>
+        </view>
+        <view class="ob__check {{regionKey === item.key ? 'ob__check--on' : ''}}">{{regionKey === item.key ? '✓' : ''}}</view>
+      </view>
+    </view>
+
+    <button class="btn btn--primary btn--block {{regionKey ? '' : 'btn--disabled'}}" bindtap="next" style="margin-top: 12rpx;">
+      下一步
+    </button>
+  </view>
+
+  <view class="ob__steps">
+    <view class="ob__dot"></view>
+    <view class="ob__dot ob__dot--on"></view>
+    <view class="ob__dot"></view>
+  </view>
+</view>

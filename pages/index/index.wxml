@@ -1,0 +1,113 @@
+<view class="page">
+  <!-- 顶部：品牌 + 当前区域（自定义导航，避开状态栏与胶囊） -->
+  <view class="hd" style="padding-top: {{navTop}}px;">
+    <view class="hd__row">
+      <view class="hd__brand">
+        <image class="hd__logo" src="/assets/logo_main.png" mode="aspectFit" />
+        <text class="hd__name">吃什么</text>
+      </view>
+      <view class="hd__region" bindtap="openRegion">
+        <text class="hd__region-text">{{me.region || '选择区域'}}</text>
+        <text class="hd__caret">▾</text>
+      </view>
+    </view>
+    <view class="hd__slogan">看看大家今天真的吃了什么</view>
+  </view>
+
+  <!-- 餐次切换：系统自动预选，始终可改 -->
+  <view class="meal-tabs">
+    <view
+      wx:for="{{mealTypes}}"
+      wx:key="key"
+      class="meal-tab {{mealType === item.key ? 'meal-tab--on' : ''}}"
+      data-key="{{item.key}}"
+      bindtap="switchMeal"
+    >
+      {{item.label}}
+    </view>
+  </view>
+
+  <!-- 随机入口：不占 Tab，放在首页显著位置 -->
+  <view class="rand card card--soft" bindtap="goRandom" hover-class="card--hover">
+    <image class="rand__dog" src="/assets/logo_main.png" mode="aspectFit" />
+    <view class="rand__text">
+      <view class="rand__q">实在不知道吃什么？</view>
+      <view class="rand__a">随机帮我选 →</view>
+    </view>
+  </view>
+
+  <!-- 饭流切换 -->
+  <view class="feed-head">
+    <view class="feed-tabs">
+      <view
+        wx:for="{{sorts}}"
+        wx:key="key"
+        class="feed-tab {{sort === item.key ? 'feed-tab--on' : ''}}"
+        data-key="{{item.key}}"
+        bindtap="switchSort"
+      >
+        {{item.label}}
+      </view>
+    </view>
+    <text class="feed-count">{{feed.length}} 顿</text>
+  </view>
+
+  <view class="feed-label">
+    <text class="feed-label__dot"></text>
+    <text>附近正在吃</text>
+  </view>
+
+  <!-- 双列规整饭卡 -->
+  <view class="grid" wx:if="{{feed.length}}">
+    <view class="grid__item" wx:for="{{feed}}" wx:key="id">
+      <meal-card meal="{{item}}" mode="feed" />
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty" wx:else>
+    <image class="empty__img" src="/assets/logo_main.png" mode="aspectFit" />
+    <view class="empty__text">这个餐次还没有人记过饭</view>
+    <view class="empty__text">要不要先留下你的这一顿？</view>
+    <button class="btn btn--primary btn--sm" bindtap="goRecord" style="margin-top: 20rpx;">记下这一顿</button>
+  </view>
+
+  <view class="feed-tip">
+    {{sort === 'recommend' ? '排序：当前餐次 › 约 3km 距离 › 新鲜度 › 就吃这个次数' : sort === 'latest' ? '排序：按实际用餐时间，从近到远' : '排序：按「就吃这个」次数多少'}}
+    　·　只看最近 36 小时的饭记
+  </view>
+</view>
+
+<!-- 区域选择 -->
+<view class="mask" wx:if="{{regionSheet}}" bindtap="closeRegion"></view>
+<view class="sheet anim-up" wx:if="{{regionSheet}}">
+  <view class="sheet__title">你在哪儿吃饭</view>
+  <view class="sheet__desc">附近默认约 3km。位置用于匹配，不等于对外公开。</view>
+
+  <view
+    class="region-row {{me.regionKey === 'gps' ? 'region-row--on' : ''}}"
+    bindtap="useGps"
+  >
+    <view>
+      <view class="region-row__name">📍 使用我的当前位置</view>
+      <view class="region-row__sub">用于匹配附近约 3km 的真实饭记</view>
+    </view>
+    <text class="region-row__check">{{me.regionKey === 'gps' ? '✓' : ''}}</text>
+  </view>
+
+  <view
+    wx:for="{{regions}}"
+    wx:key="key"
+    class="region-row {{me.regionKey === item.key ? 'region-row--on' : ''}}"
+    data-key="{{item.key}}"
+    bindtap="pickRegion"
+  >
+    <view>
+      <view class="region-row__name">{{item.name}}</view>
+      <view class="region-row__sub">{{item.sub}}</view>
+    </view>
+    <text class="region-row__check">{{me.regionKey === item.key ? '✓' : ''}}</text>
+  </view>
+
+  <view class="sheet__close" bindtap="closeRegion">取消</view>
+</view>

@@ -1,0 +1,7 @@
+@import "../../styles/onboard.wxss";
+
+.ob__note-strong {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6rpx;
+}

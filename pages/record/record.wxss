@@ -1,0 +1,238 @@
+/* ---------- 记一顿 ---------- */
+.rec-tabs {
+  margin-top: 24rpx;
+  background: #F6F1EC;
+  border-radius: 999rpx;
+  padding: 6rpx;
+}
+
+.rec-time {
+  display: flex;
+  align-items: center;
+  padding: 20rpx 24rpx;
+  border-radius: 20rpx;
+  background: var(--primary-soft);
+  margin: 22rpx 0 36rpx;
+}
+
+.rec-time__clock {
+  font-size: 28rpx;
+}
+
+.rec-time__text {
+  flex: 1;
+  font-size: 28rpx;
+  color: var(--primary);
+  font-weight: 500;
+  margin-left: 12rpx;
+}
+
+.rec-time__caret {
+  color: var(--primary);
+  font-size: 30rpx;
+}
+
+/* 图片选择样式统一在 app.wxss 中维护（记一顿 / 我的想吃共用） */
+
+/* 金额 */
+.rec-amount {
+  display: flex;
+  align-items: center;
+  height: 92rpx;
+  background: var(--card);
+  border: 1rpx solid var(--divider);
+  border-radius: 20rpx;
+  padding: 0 24rpx;
+}
+
+.rec-amount--off {
+  opacity: 0.6;
+}
+
+.rec-amount__sign {
+  font-size: 32rpx;
+  color: var(--primary);
+  font-weight: 600;
+  margin-right: 10rpx;
+}
+
+.rec-amount__input {
+  flex: 1;
+  font-size: 30rpx;
+  height: 100%;
+}
+
+.rec-amount__unknown {
+  font-size: 24rpx;
+  color: var(--text2);
+  padding: 10rpx 20rpx;
+  border-radius: 999rpx;
+  background: #F6F1EC;
+}
+
+.rec-amount__unknown--on {
+  background: var(--sage-soft);
+  color: #5C7A52;
+}
+
+/* 通用行 */
+.rec-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 26rpx 24rpx;
+  background: var(--card);
+  border: 1rpx solid var(--divider);
+  border-radius: 20rpx;
+  margin-bottom: 20rpx;
+}
+
+.rec-row__left {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.rec-row__icon {
+  font-size: 26rpx;
+  margin-right: 12rpx;
+}
+
+.rec-row__text {
+  font-size: 28rpx;
+}
+
+.rec-row__text--muted {
+  color: var(--text2);
+}
+
+.rec-row__caret {
+  color: var(--text3);
+  font-size: 30rpx;
+  margin-left: 12rpx;
+}
+
+.rec-row__sum {
+  font-size: 22rpx;
+  color: var(--text3);
+  max-width: 320rpx;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* 发布设置 */
+.rec-settings {
+  margin-bottom: 20rpx;
+}
+
+.rec-row--settings {
+  margin-bottom: 0;
+}
+
+.rec-settings__body {
+  background: var(--card);
+  border: 1rpx solid var(--divider);
+  border-top: none;
+  border-radius: 0 0 20rpx 20rpx;
+  padding: 28rpx 24rpx;
+}
+
+.perm {
+  margin-bottom: 28rpx;
+}
+
+.perm:last-of-type {
+  margin-bottom: 0;
+}
+
+.perm__label {
+  font-size: 25rpx;
+  color: var(--text2);
+  margin-bottom: 16rpx;
+}
+
+.perm__tip {
+  font-size: 21rpx;
+  color: var(--text3);
+  margin-top: 24rpx;
+  line-height: 1.6;
+}
+
+.rec-hint {
+  font-size: 21rpx;
+  color: var(--text3);
+  line-height: 1.7;
+  margin: 12rpx 4rpx 32rpx;
+}
+
+.rec-submit {
+  margin-bottom: 20rpx;
+}
+
+/* 地点选项 */
+.loc-opt {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24rpx;
+  border: 1rpx solid var(--divider);
+  border-radius: 20rpx;
+  margin-bottom: 14rpx;
+}
+
+.loc-opt--on {
+  border-color: var(--primary);
+  background: var(--primary-soft);
+}
+
+.loc-opt__name {
+  font-size: 29rpx;
+}
+
+.loc-opt__desc {
+  font-size: 22rpx;
+  color: var(--text2);
+  margin-top: 4rpx;
+}
+
+.loc-opt__check {
+  color: var(--primary);
+  font-size: 28rpx;
+  font-weight: 600;
+}
+
+.loc-opt__input {
+  margin-top: 8rpx;
+}
+
+/* 成功反馈 */
+.rec-done {
+  position: fixed;
+  left: 50%;
+  top: 42%;
+  transform: translate(-50%, -50%);
+  width: 420rpx;
+  padding: 48rpx 32rpx 40rpx;
+  background: var(--card);
+  border-radius: 32rpx;
+  text-align: center;
+  z-index: 110;
+}
+
+.rec-done__dog {
+  width: 180rpx;
+  height: 180rpx;
+}
+
+.rec-done__title {
+  font-size: 36rpx;
+  font-weight: 600;
+  margin-top: 8rpx;
+}
+
+.rec-done__sub {
+  font-size: 26rpx;
+  color: var(--text2);
+  margin-top: 8rpx;
+}

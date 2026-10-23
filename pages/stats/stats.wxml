@@ -1,0 +1,80 @@
+<view class="page" wx:if="{{stats}}">
+  <view class="segment st-seg">
+    <view
+      wx:for="{{periods}}"
+      wx:key="key"
+      class="segment__item {{period === item.key ? 'segment__item--on' : ''}}"
+      data-key="{{item.key}}"
+      bindtap="switchPeriod"
+    >
+      {{item.label}}
+    </view>
+  </view>
+
+  <!-- 总金额 -->
+  <view class="st-total card">
+    <view class="st-total__label">{{stats.label}}</view>
+    <view class="st-total__value">{{stats.totalText}}</view>
+    <view class="st-total__sub">
+      共 {{stats.count}} 顿 · 平均每顿 {{stats.avgText}}
+    </view>
+  </view>
+
+  <!-- 趋势 -->
+  <view class="section">
+    <view class="section__head">
+      <text class="section__title">{{period === 'year' ? '每月趋势' : '每天趋势'}}</text>
+      <text class="section__more">最高 {{stats.maxValue}} 元</text>
+    </view>
+
+    <view class="card st-chart" wx:if="{{stats.hasData}}">
+      <scroll-view class="st-chart__scroll" scroll-x="{{period === 'month'}}" enable-flex="{{true}}">
+        <view class="st-chart__bars {{period === 'month' ? 'st-chart__bars--dense' : ''}}">
+          <view class="st-bar" wx:for="{{stats.trend}}" wx:key="index">
+            <view class="st-bar__col">
+              <view class="st-bar__value" style="height: {{item.barHeight}}%;"></view>
+            </view>
+            <text class="st-bar__label">{{item.label}}</text>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+
+    <view class="card st-empty" wx:else>
+      <view class="st-empty__text">这个时间段还没有记录金额</view>
+      <view class="st-empty__text">记一顿的时候填上金额，这里就会自动帮你算</view>
+    </view>
+  </view>
+
+  <!-- 餐次统计 -->
+  <view class="section">
+    <view class="section__head">
+      <text class="section__title">餐次统计</text>
+      <text class="section__more">{{stats.label}}</text>
+    </view>
+
+    <view class="card st-types">
+      <view class="st-type" wx:for="{{stats.types}}" wx:key="key">
+        <view class="st-type__head">
+          <view class="st-type__left">
+            <text class="st-type__emoji">{{item.emoji}}</text>
+            <text class="st-type__label">{{item.label}}</text>
+            <text class="st-type__count">{{item.count}} 顿</text>
+          </view>
+          <view class="st-type__right">
+            <text class="st-type__value">{{item.valueText}}</text>
+            <text class="st-type__percent">{{item.percent}}%</text>
+          </view>
+        </view>
+        <view class="st-type__track">
+          <view class="st-type__fill" style="width: {{item.percent}}%;"></view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="st-tip" bindtap="goCalendar">
+    只统计「真实吃过 + 完成记录 + 填了实际金额」的饭记。餐单里的参考价和想吃的预计金额都不算。
+    去我的饭历看看 →
+  </view>
+</view>

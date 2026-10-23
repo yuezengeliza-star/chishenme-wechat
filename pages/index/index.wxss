@@ -1,0 +1,192 @@
+/* ---------- 首页顶部（自定义导航） ---------- */
+.hd {
+  padding: 0 0 8rpx;
+}
+
+.hd__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.hd__brand {
+  display: flex;
+  align-items: center;
+}
+
+.hd__logo {
+  width: 64rpx;
+  height: 64rpx;
+}
+
+.hd__name {
+  font-size: 40rpx;
+  font-weight: 600;
+  letter-spacing: 1rpx;
+  margin-left: 12rpx;
+}
+
+.hd__region {
+  display: flex;
+  align-items: center;
+  height: 60rpx;
+  padding: 0 22rpx;
+  border-radius: 999rpx;
+  background: var(--card);
+  border: 1rpx solid var(--divider);
+  max-width: 320rpx;
+}
+
+.hd__region-text {
+  font-size: 24rpx;
+  color: var(--text);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 240rpx;
+}
+
+.hd__caret {
+  font-size: 22rpx;
+  color: var(--text2);
+  margin-left: 8rpx;
+}
+
+.hd__slogan {
+  font-size: 24rpx;
+  color: var(--text2);
+  margin-top: 10rpx;
+}
+
+/* ---------- 随机入口 ---------- */
+.rand {
+  display: flex;
+  align-items: center;
+  margin-top: 24rpx;
+  padding: 22rpx 24rpx;
+}
+
+.card--hover {
+  transform: scale(0.985);
+  transition: transform 160ms ease;
+}
+
+.rand__dog {
+  width: 96rpx;
+  height: 96rpx;
+  flex-shrink: 0;
+}
+
+.rand__text {
+  margin-left: 12rpx;
+}
+
+.rand__q {
+  font-size: 26rpx;
+  color: var(--text2);
+}
+
+.rand__a {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: var(--primary);
+  margin-top: 4rpx;
+}
+
+/* ---------- 饭流切换 ---------- */
+.feed-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 40rpx;
+}
+
+.feed-tabs {
+  display: flex;
+  gap: 40rpx;
+}
+
+.feed-tab {
+  font-size: 30rpx;
+  color: var(--text2);
+  padding-bottom: 8rpx;
+  position: relative;
+}
+
+.feed-tab--on {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.feed-tab--on::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: 40rpx;
+  height: 6rpx;
+  border-radius: 3rpx;
+  background: var(--primary);
+}
+
+.feed-count {
+  font-size: 22rpx;
+  color: var(--text3);
+}
+
+.feed-label {
+  display: flex;
+  align-items: center;
+  font-size: 24rpx;
+  color: var(--text2);
+  margin: 22rpx 0 18rpx;
+}
+
+.feed-label__dot {
+  width: 12rpx;
+  height: 12rpx;
+  border-radius: 50%;
+  background: var(--sage);
+  margin-right: 10rpx;
+}
+
+.feed-tip {
+  font-size: 21rpx;
+  color: var(--text3);
+  text-align: center;
+  margin-top: 12rpx;
+  line-height: 1.6;
+}
+
+/* ---------- 区域选择行 ---------- */
+.region-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24rpx 24rpx;
+  border-radius: 20rpx;
+  border: 1rpx solid var(--divider);
+  margin-bottom: 14rpx;
+}
+
+.region-row--on {
+  border-color: var(--primary);
+  background: var(--primary-soft);
+}
+
+.region-row__name {
+  font-size: 29rpx;
+}
+
+.region-row__sub {
+  font-size: 22rpx;
+  color: var(--text2);
+  margin-top: 4rpx;
+}
+
+.region-row__check {
+  color: var(--primary);
+  font-size: 28rpx;
+  font-weight: 600;
+}

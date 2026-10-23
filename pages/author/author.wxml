@@ -1,0 +1,81 @@
+<view class="page" wx:if="{{user}}">
+  <!-- 顶部：吃饭档案 -->
+  <view class="au card">
+    <view class="au__top">
+      <view
+        class="avatar avatar--xl"
+        style="background: linear-gradient(140deg, {{user.avatarColor1}} 0%, {{user.avatarColor2}} 100%);"
+      >
+        <image wx:if="{{user.hasAvatarImage}}" class="au__avatar-img" src="{{user.avatarUrl}}" mode="aspectFill" />
+        <text wx:else>{{user.avatarDisplay}}</text>
+      </view>
+      <view class="grow au__info">
+        <view class="au__name">{{user.nickname}}</view>
+        <view class="au__row">
+          <text class="level">{{user.levelText}}</text>
+          <text class="au__count">已记录 {{user.recordCount}} 顿</text>
+        </view>
+        <view class="au__bio" wx:if="{{user.bio}}">{{user.bio}}</view>
+      </view>
+    </view>
+
+    <button
+      wx:if="{{!isMe}}"
+      class="btn btn--block {{following ? 'btn--sage' : 'btn--primary'}} au__follow"
+      bindtap="toggleFollow"
+    >
+      {{following ? '已跟吃 ✓' : '跟吃 TA'}}
+    </button>
+    <view wx:else class="au__self">这是你自己的吃饭档案</view>
+
+    <view class="au__hint" wx:if="{{!isMe}}">以后多看看 TA 都吃些什么</view>
+    <view class="au__hint au__hint--muted" wx:else>想回看更久以前，去「我的饭历」</view>
+  </view>
+
+  <!-- 今天吃了什么 -->
+  <view class="section">
+    <view class="section__head">
+      <text class="section__title">今天吃了什么</text>
+    </view>
+    <view class="card au__today">
+      <view
+        class="au__today-row"
+        wx:for="{{todayGroups}}"
+        wx:key="key"
+        data-id="{{item.meal.id}}"
+        bindtap="openMeal"
+      >
+        <view class="au__today-left">
+          <text class="au__today-emoji">{{item.emoji}}</text>
+          <text class="au__today-label">{{item.label}}</text>
+        </view>
+        <view class="au__today-right">
+          <block wx:if="{{item.meal}}">
+            <text class="au__today-name">{{item.meal.name}}</text>
+            <text class="au__today-amount" wx:if="{{item.meal.amountKnown}}">{{item.meal.amountText}}</text>
+            <text class="au__today-amount au__today-amount--none" wx:else>未记金额</text>
+          </block>
+          <text class="au__today-none" wx:else>还没记录</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 最近吃过 -->
+  <view class="section">
+    <view class="section__head">
+      <text class="section__title">最近吃过</text>
+      <text class="section__more">共 {{recentCount}} 顿</text>
+    </view>
+
+    <view class="grid" wx:if="{{recent.length}}">
+      <view class="grid__item" wx:for="{{recent}}" wx:key="id">
+        <meal-card meal="{{item}}" mode="author" />
+      </view>
+    </view>
+    <view class="empty" wx:else>
+      <view class="empty__text">还没有记录</view>
+    </view>
+  </view>
+
+</view>

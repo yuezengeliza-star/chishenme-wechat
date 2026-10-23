@@ -1,0 +1,57 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/record/record",
+    "pages/mine/mine",
+    "pages/onboard-profile/onboard-profile",
+    "pages/onboard-location/onboard-location",
+    "pages/welcome/welcome",
+    "pages/random/random",
+    "pages/meal-detail/meal-detail",
+    "pages/author/author",
+    "pages/calendar/calendar",
+    "pages/plan/plan",
+    "pages/wish/wish",
+    "pages/wish-edit/wish-edit",
+    "pages/following/following",
+    "pages/stats/stats",
+    "pages/settings/settings"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#FFF8F1",
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "吃什么",
+    "backgroundColor": "#FFF8F1",
+    "backgroundTextStyle": "dark"
+  },
+  "tabBar": {
+    "custom": true,
+    "color": "#8B7B72",
+    "selectedColor": "#FF8B3D",
+    "backgroundColor": "#FFFFFF",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/record/record",
+        "text": "记一顿"
+      },
+      {
+        "pagePath": "pages/mine/mine",
+        "text": "我的"
+      }
+    ]
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "用于匹配你附近约 3km 内大家刚吃过的饭"
+    }
+  },
+  "requiredPrivateInfos": ["getLocation", "chooseLocation"],
+  "style": "v2",
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents"
+}

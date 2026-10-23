@@ -1,0 +1,8 @@
+{
+  "navigationStyle": "custom",
+  "navigationBarTextStyle": "black",
+  "backgroundColor": "#FFF8F1",
+  "usingComponents": {
+    "meal-card": "/components/meal-card/index"
+  }
+}

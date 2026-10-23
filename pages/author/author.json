@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "吃饭档案",
+  "usingComponents": {
+    "meal-card": "/components/meal-card/index"
+  }
+}

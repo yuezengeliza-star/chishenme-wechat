@@ -1,0 +1,52 @@
+<view class="mc" bindtap="onTap" hover-class="mc--hover" hover-stay-time="80">
+  <view class="mc__media">
+    <image
+      wx:if="{{meal.hasImage}}"
+      class="mc__img"
+      src="{{meal.cover}}"
+      mode="aspectFill"
+      lazy-load="{{true}}"
+    />
+    <view
+      wx:else
+      class="mc__ph"
+      style="background: linear-gradient(150deg, {{meal.grad1}} 0%, {{meal.grad2}} 100%);"
+    >
+      <text class="mc__emoji">{{meal.emoji}}</text>
+    </view>
+
+    <view wx:if="{{showVisibility && meal.visibility !== 'public'}}" class="mc__vis">
+      {{meal.visibility === 'private' ? '仅自己' : '仅附近'}}
+    </view>
+  </view>
+
+  <view class="mc__body">
+    <view class="mc__name">{{meal.name}}</view>
+
+    <view class="mc__amount {{meal.amountKnown ? '' : 'mc__amount--unknown'}}">
+      {{meal.amountText}}
+    </view>
+
+    <view wx:if="{{mode === 'feed'}}" class="mc__foot">
+      <view
+        class="mc__avatar"
+        style="background: linear-gradient(140deg, {{meal.author.avatarColor1}} 0%, {{meal.author.avatarColor2}} 100%);"
+      >
+        <image
+          wx:if="{{meal.author.hasAvatarImage}}"
+          class="mc__avatar-img"
+          src="{{meal.author.avatarUrl}}"
+          mode="aspectFill"
+        />
+        <text wx:else>{{meal.author.avatarDisplay}}</text>
+      </view>
+      <text class="mc__author">{{meal.authorName}}</text>
+      <text class="mc__sep">·</text>
+      <text class="mc__time">{{meal.cardTime}}</text>
+    </view>
+
+    <view wx:else class="mc__foot">
+      <text class="mc__time">{{meal.dayLabel}}</text>
+    </view>
+  </view>
+</view>

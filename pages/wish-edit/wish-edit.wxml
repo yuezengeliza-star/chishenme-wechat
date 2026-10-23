@@ -1,0 +1,77 @@
+<view class="page page--flat">
+  <view class="we__tip card card--soft">
+    想吃的不用是探店推荐。路过的小馆子、朋友说好吃的、突然想吃的，都可以先记下来。
+  </view>
+
+  <view class="field" style="margin-top: 32rpx;">
+    <view class="field__label">想吃什么 / 店名</view>
+    <input
+      class="input"
+      maxlength="24"
+      placeholder="例如：老王牛肉面"
+      placeholder-class="input__ph"
+      value="{{name}}"
+      bindinput="onName"
+    />
+  </view>
+
+  <view class="field">
+    <view class="field__label">地点（选填）</view>
+    <input
+      class="input"
+      maxlength="24"
+      placeholder="例如：五角场"
+      placeholder-class="input__ph"
+      value="{{placeName}}"
+      bindinput="onPlace"
+    />
+  </view>
+
+  <view class="field">
+    <view class="field__label">预计金额（选填）</view>
+    <view class="we__amount">
+      <text class="we__amount-sign">¥</text>
+      <input
+        class="we__amount-input"
+        type="digit"
+        placeholder="例如 25"
+        placeholder-class="input__ph"
+        value="{{expectedAmount}}"
+        bindinput="onAmount"
+      />
+    </view>
+    <view class="rec-hint-inline">预计金额只是参考，不会计入你的真实消费统计。</view>
+  </view>
+
+  <view class="field">
+    <view class="field__label">图片（选填）</view>
+    <view class="we__images">
+      <view class="rec-img" wx:if="{{images.length}}" data-src="{{images[0]}}" bindtap="previewImage">
+        <image class="rec-img__pic" src="{{images[0]}}" mode="aspectFill" />
+        <view class="rec-img__del" catchtap="removeImage">✕</view>
+      </view>
+      <view class="rec-img rec-img--add" wx:else bindtap="chooseImage">
+        <text class="rec-img__plus">＋</text>
+        <text class="rec-img__label">添加照片</text>
+        <text class="rec-img__opt">（可选）</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="field">
+    <view class="field__label">备注（选填）</view>
+    <textarea
+      class="input input--area"
+      maxlength="60"
+      placeholder="比如：朋友说他家辣椒油很好吃"
+      placeholder-class="input__ph"
+      value="{{note}}"
+      bindinput="onNote"
+    />
+    <view class="counter">{{note.length}}/60</view>
+  </view>
+
+  <button class="btn btn--primary btn--block {{canSubmit ? '' : 'btn--disabled'}}" bindtap="submit">
+    收进我的想吃
+  </button>
+</view>

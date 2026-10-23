@@ -1,0 +1,162 @@
+.st2-seg {
+  margin-top: 28rpx;
+}
+
+.st2-lead {
+  margin-top: 24rpx;
+  font-size: 24rpx;
+  color: #8A4A17;
+  line-height: 1.7;
+}
+
+.st2-list {
+  margin-top: 24rpx;
+}
+
+.st2-item {
+  margin-bottom: 18rpx;
+  padding: 26rpx 28rpx;
+}
+
+.st2-item__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.st2-item__title {
+  font-size: 29rpx;
+  font-weight: 500;
+}
+
+.st2-item__caret {
+  font-size: 26rpx;
+  color: var(--text3);
+  margin-left: 20rpx;
+}
+
+.st2-item__body {
+  font-size: 25rpx;
+  color: var(--text2);
+  line-height: 1.85;
+  margin-top: 18rpx;
+  padding-top: 18rpx;
+  border-top: 1rpx dashed var(--divider);
+}
+
+.st2-about {
+  margin-top: 12rpx;
+  text-align: center;
+  padding: 32rpx 28rpx;
+}
+
+.st2-about__title {
+  font-size: 30rpx;
+  font-weight: 600;
+}
+
+.st2-about__body {
+  font-size: 24rpx;
+  color: var(--text2);
+  line-height: 1.8;
+  margin-top: 14rpx;
+  text-align: left;
+}
+
+.st2-about__logo {
+  width: 160rpx;
+  height: 160rpx;
+  margin-top: 16rpx;
+}
+
+.st2-link {
+  text-align: center;
+  font-size: 26rpx;
+  color: var(--primary);
+  padding: 40rpx 0 20rpx;
+}
+
+/* 设置 */
+.st2-group {
+  margin-top: 24rpx;
+  padding: 0 28rpx;
+}
+
+.st2-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 30rpx 0;
+  border-bottom: 1rpx solid var(--divider);
+}
+
+.st2-row:last-child {
+  border-bottom: none;
+}
+
+.st2-row__left {
+  min-width: 0;
+  flex: 1;
+}
+
+.st2-row__label {
+  font-size: 30rpx;
+}
+
+.st2-row__sub {
+  font-size: 22rpx;
+  color: var(--text2);
+  margin-top: 6rpx;
+}
+
+.st2-row__right {
+  display: flex;
+  align-items: center;
+  gap: 10rpx;
+  flex-shrink: 0;
+}
+
+.st2-row__value {
+  font-size: 26rpx;
+  color: var(--text2);
+}
+
+.st2-foot {
+  font-size: 21rpx;
+  color: var(--text3);
+  text-align: center;
+  line-height: 1.8;
+  margin-top: 40rpx;
+}
+
+/* 区域选择 */
+.st2-region {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24rpx;
+  border: 1rpx solid var(--divider);
+  border-radius: 20rpx;
+  margin-bottom: 14rpx;
+}
+
+.st2-region--on {
+  border-color: var(--primary);
+  background: var(--primary-soft);
+}
+
+.st2-region__name {
+  font-size: 29rpx;
+}
+
+.st2-region__sub {
+  font-size: 22rpx;
+  color: var(--text2);
+  margin-top: 4rpx;
+}
+
+.st2-region__check {
+  color: var(--primary);
+  font-size: 28rpx;
+  font-weight: 600;
+}

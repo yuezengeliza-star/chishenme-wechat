@@ -1,0 +1,5 @@
+@import "../../styles/onboard.wxss";
+
+.ob__card {
+  margin-top: 0;
+}

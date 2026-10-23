@@ -1,0 +1,166 @@
+<view class="page">
+  <!-- 第一步：选择随机来源 -->
+  <block wx:if="{{!source}}">
+    <view class="rd__hero">
+      <image class="rd__dog anim-pop" src="/assets/logo_main.png" mode="aspectFit" />
+      <view class="rd__hero-title">实在不知道吃什么？</view>
+      <view class="rd__hero-sub">把决定交给随机，先从哪儿抽？</view>
+    </view>
+
+    <view class="rd__source card" data-source="nearby" bindtap="chooseSource" hover-class="card--hover">
+      <view class="rd__source-icon">🍚</view>
+      <view class="grow">
+        <view class="rd__source-title">附近大家正在吃</view>
+        <view class="rd__source-desc">从当前餐次、附近约 3km 内大家刚吃过的真实饭记里随机一个</view>
+      </view>
+      <text class="cell-arrow">›</text>
+    </view>
+
+    <view class="rd__source card" data-source="wish" bindtap="chooseSource" hover-class="card--hover">
+      <view class="rd__source-icon">💛</view>
+      <view class="grow">
+        <view class="rd__source-title">我的想吃</view>
+        <view class="rd__source-desc">
+          {{wishCount ? '从你还没吃过的想吃清单里随机一个' : '你还没有想吃的，先去记一个'}}
+        </view>
+      </view>
+      <text class="cell-arrow">›</text>
+    </view>
+  </block>
+
+  <!-- 第二步：抽一个 -->
+  <block wx:else>
+    <view class="rd__bar">
+      <view class="rd__back" bindtap="backToSource">‹ 换个来源</view>
+      <text class="rd__source-name">{{source === 'wish' ? '我的想吃' : '附近大家正在吃'}}</text>
+    </view>
+
+    <view class="meal-tabs rd__tabs" wx:if="{{source === 'nearby'}}">
+      <view
+        wx:for="{{mealTypes}}"
+        wx:key="key"
+        class="meal-tab {{mealType === item.key ? 'meal-tab--on' : ''}}"
+        data-key="{{item.key}}"
+        bindtap="switchMeal"
+      >
+        {{item.label}}
+      </view>
+    </view>
+
+    <!-- 抽到结果 -->
+    <view class="rd__card card anim-pop" wx:if="{{result && !rolling}}">
+      <view
+        class="rd__media"
+        style="background: linear-gradient(150deg, {{result.grad1}} 0%, {{result.grad2}} 100%);"
+        bindtap="openMeal"
+      >
+        <text class="rd__media-emoji">{{result.emoji}}</text>
+      </view>
+
+      <view class="rd__name">{{result.name}}</view>
+
+      <view class="rd__amount">
+        <block wx:if="{{resultKind === 'wish'}}">
+          <text wx:if="{{result.amountText}}">{{result.amountText}}</text>
+          <text wx:else class="rd__amount-none">没填预计金额</text>
+        </block>
+        <block wx:else>
+          <text wx:if="{{result.amountKnown}}">{{result.amountText}}</text>
+          <text wx:else class="rd__amount-none">未记金额</text>
+        </block>
+      </view>
+
+      <view class="rd__meta" wx:if="{{resultKind === 'meal'}}">
+        <view
+          class="avatar avatar--sm"
+          style="background: linear-gradient(140deg, {{result.author.avatarColor1}} 0%, {{result.author.avatarColor2}} 100%);"
+        >
+          <image
+            wx:if="{{result.author.hasAvatarImage}}"
+            class="rd__avatar-img"
+            src="{{result.author.avatarUrl}}"
+            mode="aspectFill"
+          />
+          <text wx:else>{{result.author.avatarDisplay}}</text>
+        </view>
+        <view class="grow">
+          <view class="rd__author">{{result.authorName}}</view>
+          <view class="rd__time">{{result.timeLabel}}</view>
+        </view>
+        <text class="rd__more" bindtap="openMeal">看这一顿 ›</text>
+      </view>
+
+      <view class="rd__meta" wx:else>
+        <view class="grow">
+          <view class="rd__author">{{result.placeName || result.areaName || '没写地点'}}</view>
+          <view class="rd__time">{{result.note || '来自我的想吃'}}</view>
+        </view>
+      </view>
+
+      <button class="btn btn--primary btn--block rd__plan" bindtap="openPlan">
+        {{resultKind === 'wish' ? '安排到餐单' : '就吃这个'}}
+      </button>
+      <view class="rd__again" bindtap="roll">换一个</view>
+    </view>
+
+    <!-- 抽不到 -->
+    <view class="empty" wx:elif="{{!result && !rolling}}">
+      <image class="empty__img" src="/assets/logo_main.png" mode="aspectFit" />
+      <view class="empty__text">
+        {{source === 'wish' ? '你的想吃清单还是空的' : '这个餐次附近暂时没有可抽的饭记'}}
+      </view>
+      <view class="empty__text">
+        {{source === 'wish' ? '先去记一个想吃的吧' : '换个餐次，或者晚点再来看看'}}
+      </view>
+      <button
+        wx:if="{{source === 'wish'}}"
+        class="btn btn--primary btn--sm"
+        bindtap="goWish"
+        style="margin-top: 20rpx;"
+      >
+        去记一个想吃的
+      </button>
+      <button
+        wx:else
+        class="btn btn--ghost btn--sm"
+        bindtap="backToSource"
+        style="margin-top: 20rpx;"
+      >
+        换个来源
+      </button>
+    </view>
+
+    <view class="rd__rolling" wx:if="{{rolling}}">
+      <image class="rd__dog anim-shake" src="/assets/logo_main.png" mode="aspectFit" />
+      <view class="rd__hero-sub">正在帮你翻一翻…</view>
+    </view>
+  </block>
+</view>
+
+<!-- 安排到餐单 -->
+<view class="mask" wx:if="{{planSheet}}" bindtap="closePlan"></view>
+<view class="sheet anim-up" wx:if="{{planSheet}}">
+  <view class="sheet__title">就吃这个</view>
+  <view class="sheet__desc">{{result.name}} · 这只是计划，不算已经吃过</view>
+
+  <view wx:for="{{planOptions}}" wx:key="dateKey" class="plan-group">
+    <view class="plan-group__label">{{item.label}}</view>
+    <view class="plan-slots">
+      <view
+        wx:for="{{item.slots}}"
+        wx:for-item="slot"
+        wx:key="mealType"
+        class="plan-slot {{slot.taken ? 'plan-slot--taken' : ''}}"
+        data-type="{{slot.mealType}}"
+        data-date="{{item.dateKey}}"
+        bindtap="pickPlan"
+      >
+        <text class="plan-slot__emoji">{{slot.emoji}}</text>
+        <text class="plan-slot__label">{{slot.label}}</text>
+        <text wx:if="{{slot.taken}}" class="plan-slot__taken">已安排</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="sheet__close" bindtap="closePlan">取消</view>
+</view>

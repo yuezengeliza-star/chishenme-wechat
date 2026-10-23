@@ -1,0 +1,20 @@
+<view class="tabbar">
+  <view class="tabbar__inner">
+    <view class="tab {{selected === 0 ? 'tab--on' : ''}}" data-index="0" bindtap="onTap">
+      <view class="tab__icon tab__icon--home {{selected === 0 ? 'is-on' : ''}}"></view>
+      <view class="tab__text">首页</view>
+    </view>
+
+    <view class="tab tab--center" data-index="1" bindtap="onTap">
+      <view class="tab__fab">
+        <view class="fab__plus"></view>
+      </view>
+      <view class="tab__text tab__text--fab">记一顿</view>
+    </view>
+
+    <view class="tab {{selected === 2 ? 'tab--on' : ''}}" data-index="2" bindtap="onTap">
+      <view class="tab__icon tab__icon--user {{selected === 2 ? 'is-on' : ''}}"></view>
+      <view class="tab__text">我的</view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,9 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "「吃什么」云函数路由入口：用户 / 饭记 / 想吃 / 餐单 / 跟吃 / 统计",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3"
+  }
+}

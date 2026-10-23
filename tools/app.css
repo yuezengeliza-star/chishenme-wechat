@@ -1,0 +1,335 @@
+/* ============================================================
+   可交互网页版 —— 设备外壳与交互层样式
+   （内容区样式复用 preview.css，即小程序 app.wxss 的 1:2 映射）
+   ============================================================ */
+
+html, body { height: 100%; }
+
+body.app-body {
+  background:
+    radial-gradient(1100px 620px at 50% -10%, #FFF1E2 0%, rgba(255, 241, 226, 0) 70%),
+    #F4E9DC;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 22px 16px 40px;
+}
+
+/* ---------- 顶部演示工具条 ---------- */
+.demo-bar {
+  width: 100%;
+  max-width: 1060px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 14px;
+  margin-bottom: 18px;
+  padding: 12px 16px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid #E9DACB;
+  backdrop-filter: blur(10px);
+}
+
+.demo-bar__brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--text);
+}
+
+.demo-bar__brand img { width: 30px; height: 30px; }
+
+.demo-bar__hint {
+  font-size: 12px;
+  color: var(--text2);
+  flex: 1;
+  min-width: 200px;
+  line-height: 1.6;
+}
+
+.demo-btn {
+  font: inherit;
+  font-size: 12.5px;
+  color: #8A5A2B;
+  background: #FFF1E5;
+  border: 1px solid #F0D8C0;
+  border-radius: 999px;
+  padding: 7px 14px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.demo-btn:hover { background: #FFE3CB; }
+.demo-btn--ghost { background: #fff; color: var(--text2); border-color: var(--divider); }
+
+/* ---------- 设备 ---------- */
+.device {
+  position: relative;
+  width: 375px;
+  height: 812px;
+  border-radius: 44px;
+  background: #3A2A20;
+  padding: 10px;
+  box-shadow:
+    0 40px 80px -30px rgba(73, 53, 42, 0.45),
+    0 0 0 1px rgba(255, 255, 255, 0.35) inset;
+  flex-shrink: 0;
+}
+
+.device .phone {
+  width: 100%;
+  height: 100%;
+  border-radius: 35px;
+  border: none;
+  box-shadow: none;
+  overflow: hidden;
+}
+
+/* 顶部刘海 */
+.device__notch {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 150px;
+  height: 26px;
+  background: #3A2A20;
+  border-radius: 0 0 16px 16px;
+  z-index: 6;
+}
+
+/* ---------- 导航栏（带返回） ---------- */
+.navbar__back {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  font-size: 19px;
+  color: var(--text);
+  cursor: pointer;
+  line-height: 1;
+  z-index: 4;
+}
+
+.navbar__back:active { background: rgba(73, 53, 42, 0.07); }
+.navbar__right { font-size: 13px; color: var(--text2); z-index: 4; }
+.navbar--plain { justify-content: flex-start; padding-left: 6px; }
+
+/* 自定义导航页（首页）：内容自己留出胶囊空间 */
+.screen--custom-nav { padding-top: 0; }
+
+/* ---------- 通用交互件 ---------- */
+.screen { scroll-behavior: smooth; }
+
+.tap { cursor: pointer; }
+.tap:active { opacity: 0.72; }
+
+.btn { cursor: pointer; font-family: inherit; }
+.btn:active { filter: brightness(0.96); }
+
+/* 遮罩与底部面板复用 preview.css 的配色，这里补交互层 */
+.overlay-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 15;
+  pointer-events: none;
+}
+
+.overlay-layer > * { pointer-events: auto; }
+
+.mask {
+  position: absolute;
+  inset: 0;
+  background: rgba(73, 53, 42, 0.42);
+  z-index: 20;
+  animation: fade-in 180ms ease both;
+}
+
+.sheet-wrap {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 21;
+  max-height: 82%;
+  overflow-y: auto;
+  background: #fff;
+  border-radius: 22px 22px 0 0;
+  padding: 18px 16px 22px;
+  animation: sheet-up 240ms cubic-bezier(0.22, 0.8, 0.3, 1) both;
+}
+
+.sheet-title { font-size: 16px; font-weight: 600; text-align: center; }
+.sheet-desc {
+  font-size: 12px;
+  color: var(--text2);
+  text-align: center;
+  margin-top: 4px;
+  margin-bottom: 14px;
+  line-height: 1.6;
+}
+.sheet-close {
+  text-align: center;
+  color: var(--text2);
+  font-size: 14px;
+  padding: 14px 0 2px;
+  cursor: pointer;
+}
+.sheet-btn { margin-top: 14px; }
+
+@keyframes sheet-up {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Toast */
+.toast {
+  position: absolute;
+  left: 50%;
+  bottom: 96px;
+  transform: translateX(-50%);
+  max-width: 78%;
+  background: rgba(73, 53, 42, 0.9);
+  color: #fff;
+  font-size: 13px;
+  line-height: 1.5;
+  padding: 10px 16px;
+  border-radius: 10px;
+  z-index: 40;
+  text-align: center;
+  animation: fade-in 140ms ease both;
+}
+
+/* 居中弹窗（替代 wx.showModal） */
+.dialog {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 280px;
+  background: #fff;
+  border-radius: 16px;
+  padding: 22px 18px 14px;
+  z-index: 41;
+  text-align: center;
+  animation: pop-in 200ms ease both;
+}
+.dialog__title { font-size: 16px; font-weight: 600; }
+.dialog__body {
+  font-size: 13.5px;
+  color: var(--text2);
+  line-height: 1.75;
+  margin-top: 10px;
+  white-space: pre-wrap;
+  text-align: left;
+}
+.dialog__acts {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+.dialog__acts .btn { flex: 1; height: 40px; font-size: 14px; }
+
+@keyframes pop-in {
+  from { transform: translate(-50%, -50%) scale(0.9); opacity: 0; }
+  to { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+}
+
+/* 成功反馈（柴犬） */
+.done-pop {
+  position: absolute;
+  left: 50%;
+  top: 42%;
+  transform: translate(-50%, -50%);
+  width: 210px;
+  padding: 24px 16px 20px;
+  background: #fff;
+  border-radius: 18px;
+  text-align: center;
+  z-index: 42;
+  animation: pop-in 260ms ease both;
+}
+.done-pop img { width: 90px; height: 90px; }
+.done-pop__title { font-size: 18px; font-weight: 600; margin-top: 4px; }
+.done-pop__sub { font-size: 13px; color: var(--text2); margin-top: 4px; }
+
+@keyframes wiggle {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-7deg); }
+  75% { transform: rotate(7deg); }
+}
+.wiggle { animation: wiggle 260ms ease-in-out 2; }
+
+/* 表单在网页版里的输入控件 */
+input.ipt, textarea.ipt {
+  font: inherit;
+  color: var(--text);
+  background: transparent;
+  border: none;
+  outline: none;
+  width: 100%;
+}
+input.ipt::placeholder, textarea.ipt::placeholder { color: var(--text3); }
+
+.field-box {
+  display: flex;
+  align-items: center;
+  min-height: 46px;
+  background: #fff;
+  border: 1px solid var(--divider);
+  border-radius: 10px;
+  padding: 11px 14px;
+}
+.field-box--area { align-items: flex-start; min-height: 88px; }
+textarea.ipt { resize: none; min-height: 66px; line-height: 1.6; }
+
+.chip { cursor: pointer; }
+.segment-item { cursor: pointer; }
+.cal-cell { cursor: pointer; }
+.meal-tab { cursor: pointer; }
+.feed-tab { cursor: pointer; }
+.plan-slot { cursor: pointer; }
+.list-tap { cursor: pointer; }
+.list-tap:active { background: rgba(73, 53, 42, 0.03); }
+
+/* 空状态里的按钮间距 */
+.empty__acts { display: flex; justify-content: center; gap: 10px; margin-top: 16px; }
+
+/* 桌面端把设备放正中间，下面给点说明 */
+.device-note {
+  font-size: 12px;
+  color: #9A8B80;
+  margin-top: 18px;
+  text-align: center;
+  line-height: 1.7;
+  max-width: 420px;
+}
+
+/* ---------- 移动端：直接全屏当 App 用 ---------- */
+@media (max-width: 520px) {
+  body.app-body { padding: 0; background: #FFF8F1; }
+  .demo-bar { display: none; }
+  .device-note { display: none; }
+  .device {
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    border-radius: 0;
+    padding: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+  .device .phone { border-radius: 0; }
+  .device__notch { display: none; }
+  .toast { bottom: 110px; }
+}

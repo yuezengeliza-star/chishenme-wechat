@@ -1,0 +1,205 @@
+/* 我的 */
+.me {
+  display: flex;
+  align-items: center;
+  gap: 24rpx;
+  margin-top: 28rpx;
+}
+
+.me__avatar-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+.me__name {
+  font-size: 36rpx;
+  font-weight: 600;
+}
+
+.me__sub {
+  display: flex;
+  align-items: center;
+  gap: 14rpx;
+  margin-top: 10rpx;
+}
+
+.me__count {
+  font-size: 22rpx;
+  color: var(--text2);
+}
+
+.me__bio {
+  font-size: 23rpx;
+  color: var(--text2);
+  margin-top: 8rpx;
+  line-height: 1.5;
+}
+
+.me__edit {
+  font-size: 24rpx;
+  color: var(--text2);
+  padding: 12rpx 22rpx;
+  border-radius: 999rpx;
+  border: 1rpx solid var(--divider);
+  flex-shrink: 0;
+}
+
+/* 今日三餐 */
+.today {
+  display: flex;
+  gap: 14rpx;
+  padding: 20rpx;
+}
+
+.today__slot {
+  flex: 1;
+  padding: 20rpx 12rpx;
+  border-radius: 20rpx;
+  background: #FAF6F1;
+  text-align: center;
+  min-height: 168rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.today__slot--on {
+  background: var(--primary-soft);
+}
+
+.today__emoji {
+  font-size: 30rpx;
+  line-height: 1.2;
+}
+
+.today__label {
+  font-size: 22rpx;
+  color: var(--text2);
+  margin-top: 6rpx;
+}
+
+.today__name {
+  font-size: 24rpx;
+  color: var(--text);
+  margin-top: 10rpx;
+  line-height: 1.35;
+}
+
+.today__amount {
+  font-size: 22rpx;
+  color: var(--primary);
+  margin-top: 4rpx;
+}
+
+.today__hint {
+  font-size: 22rpx;
+  color: var(--text3);
+  margin-top: 14rpx;
+  padding-left: 4rpx;
+}
+
+/* 本月消费 */
+.month {
+  display: flex;
+  align-items: center;
+  margin-top: 32rpx;
+  background: linear-gradient(135deg, #FFF3E8 0%, #FFE8D3 100%);
+  border-color: transparent;
+}
+
+.card--hover {
+  transform: scale(0.985);
+  transition: transform 160ms ease;
+}
+
+.month__label {
+  font-size: 24rpx;
+  color: var(--text2);
+}
+
+.month__value {
+  font-size: 52rpx;
+  font-weight: 600;
+  color: var(--primary);
+  margin-top: 6rpx;
+  line-height: 1.2;
+}
+
+.month__right {
+  display: flex;
+  align-items: center;
+}
+
+.month__more {
+  font-size: 22rpx;
+  color: var(--text2);
+}
+
+/* 二级入口 */
+.entry {
+  padding: 0 28rpx;
+}
+
+.entry__row {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+  padding: 30rpx 0;
+  border-bottom: 1rpx solid var(--divider);
+}
+
+.entry__row:last-child {
+  border-bottom: none;
+}
+
+.entry__icon {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: 20rpx;
+  background: var(--apricot-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30rpx;
+  flex-shrink: 0;
+}
+
+.entry__title {
+  font-size: 30rpx;
+  font-weight: 500;
+}
+
+.entry__desc {
+  font-size: 22rpx;
+  color: var(--text2);
+  margin-top: 4rpx;
+}
+
+/* 底部 */
+.foot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16rpx;
+  margin-top: 48rpx;
+}
+
+.foot__link {
+  font-size: 26rpx;
+  color: var(--text2);
+}
+
+.foot__dot {
+  color: var(--text3);
+  font-size: 24rpx;
+}
+
+.foot__tip {
+  font-size: 21rpx;
+  color: var(--text3);
+  text-align: center;
+  margin-top: 20rpx;
+  line-height: 1.7;
+}

@@ -1,0 +1,22 @@
+<view class="wl">
+  <view class="wl__head">
+    <image class="wl__logo anim-pop" src="/assets/logo_main.png" mode="aspectFit" />
+    <view class="wl__title">给今天还不知道吃什么的你</view>
+    <view class="wl__sub">不用研究攻略，看看大家今天真的吃了什么</view>
+  </view>
+
+  <view class="wl__paper">
+    <block wx:for="{{letter}}" wx:key="index">
+      <view wx:if="{{item.t === 'p'}}" class="wl__p">{{item.v}}</view>
+      <view wx:elif="{{item.t === 'q'}}" class="wl__q">{{item.v}}</view>
+      <view wx:else class="wl__sign">{{item.v}}</view>
+    </block>
+  </view>
+
+  <view class="wl__tip">这封信只出现这一次，以后可以在「我的 → 使用说明」里重新看。</view>
+</view>
+
+<view class="wl__bar">
+  <button class="btn btn--ghost wl__bar-btn" bindtap="goManual">看看使用手册</button>
+  <button class="btn btn--primary wl__bar-btn" bindtap="goHome">我自己逛逛 →</button>
+</view>

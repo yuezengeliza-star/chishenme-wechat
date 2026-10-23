@@ -1,0 +1,117 @@
+<view class="page page--flat detail" wx:if="{{meal}}">
+  <!-- 1. 大图（如有；点击可全屏） -->
+  <view class="detail__hero" wx:if="{{meal.hasImage}}" bindtap="previewImage">
+    <image class="detail__hero-img" src="{{meal.cover}}" mode="aspectFill" />
+  </view>
+  <view
+    wx:else
+    class="detail__hero detail__hero--ph"
+    style="background: linear-gradient(150deg, {{meal.grad1}} 0%, {{meal.grad2}} 100%);"
+  >
+    <text class="detail__hero-emoji">{{meal.emoji}}</text>
+  </view>
+
+  <!-- 2. 饭名 + 金额 -->
+  <view class="detail__head">
+    <view class="detail__name">{{meal.name}}</view>
+    <view class="detail__amount {{meal.amountKnown ? '' : 'detail__amount--unknown'}}">
+      {{meal.amountText}}
+    </view>
+  </view>
+
+  <view class="detail__meta">
+    <text class="tag tag--soft">{{meal.mealTypeLabel}}</text>
+    <text class="detail__meta-time">{{meal.timeLabel}}</text>
+  </view>
+
+  <!-- 3. 作者 -->
+  <view class="detail__author card" bindtap="goAuthor">
+    <view
+      class="avatar avatar--md"
+      style="background: linear-gradient(140deg, {{meal.author.avatarColor1}} 0%, {{meal.author.avatarColor2}} 100%);"
+    >
+      <image
+        wx:if="{{meal.author.hasAvatarImage}}"
+        class="detail__author-img"
+        src="{{meal.author.avatarUrl}}"
+        mode="aspectFill"
+      />
+      <text wx:else>{{meal.author.avatarDisplay}}</text>
+    </view>
+    <view class="grow">
+      <view class="detail__author-name">{{meal.authorName}}</view>
+      <view class="detail__author-sub">
+        <text class="level">{{meal.author.levelText}}</text>
+        <text class="detail__author-count">已记录 {{meal.author.recordCount}} 顿</text>
+      </view>
+    </view>
+    <text class="cell-arrow">›</text>
+  </view>
+
+  <!-- 4. 地点（仅在作者允许时） -->
+  <view class="detail__block" wx:if="{{placeLine}}">
+    <view class="detail__block-title">📍 在哪儿吃的</view>
+    <view class="detail__block-body">{{placeLine}}</view>
+    <view class="detail__block-note" wx:if="{{meal.distanceText}}">距你约 {{meal.distanceText}}</view>
+  </view>
+
+  <!-- 5. 吃这一顿的时候（感受，仅在允许时） -->
+  <view class="detail__block" wx:if="{{moodLine}}">
+    <view class="detail__block-title">吃这一顿的时候</view>
+    <view class="detail__block-body detail__block-body--mood">{{moodLine}}</view>
+  </view>
+
+  <view class="detail__block detail__block--empty" wx:if="{{!placeLine && !moodLine}}">
+    <view class="detail__block-body detail__block-body--muted">
+      作者没有公开地点和感受，只留下了这一顿本身。
+    </view>
+  </view>
+
+</view>
+
+<!-- 6. 底部固定操作 -->
+<view class="action-bar" wx:if="{{meal && !isMine}}">
+  <view class="detail__save {{isSaved ? 'detail__save--on' : ''}}" bindtap="toggleSave">
+    <text class="detail__save-icon">{{isSaved ? '♥' : '♡'}}</text>
+    <text class="detail__save-text">{{isSaved ? '已收藏' : '收藏'}}</text>
+  </view>
+  <button class="btn btn--primary grow" bindtap="openPlan">就吃这个</button>
+</view>
+
+<view class="action-bar" wx:if="{{meal && isMine}}">
+  <view class="detail__mine">
+    <view class="grow">
+      <text class="tag tag--sage">这是你记下的一顿</text>
+      <text class="detail__mine-time">{{meal.timeLabel}}</text>
+    </view>
+    <view class="detail__del" bindtap="deleteMeal">删掉</view>
+  </view>
+</view>
+
+<!-- 就吃这个：选择今天 / 明天的一餐 -->
+<view class="mask" wx:if="{{planSheet}}" bindtap="closePlan"></view>
+<view class="sheet anim-up" wx:if="{{planSheet}}">
+  <view class="sheet__title">就吃这个</view>
+  <view class="sheet__desc">安排到我的餐单。这只是计划，不算已经吃过。</view>
+
+  <view wx:for="{{planOptions}}" wx:key="dateKey" class="plan-group">
+    <view class="plan-group__label">{{item.label}}</view>
+    <view class="plan-slots">
+      <view
+        wx:for="{{item.slots}}"
+        wx:for-item="slot"
+        wx:key="mealType"
+        class="plan-slot {{slot.taken ? 'plan-slot--taken' : ''}}"
+        data-type="{{slot.mealType}}"
+        data-date="{{item.dateKey}}"
+        bindtap="pickPlan"
+      >
+        <text class="plan-slot__emoji">{{slot.emoji}}</text>
+        <text class="plan-slot__label">{{slot.label}}</text>
+        <text wx:if="{{slot.taken}}" class="plan-slot__taken">已安排</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="sheet__close" bindtap="closePlan">取消</view>
+</view>

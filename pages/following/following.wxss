@@ -1,0 +1,60 @@
+.fw__title {
+  font-size: 40rpx;
+  font-weight: 600;
+  margin-top: 32rpx;
+  line-height: 1.4;
+}
+
+.fw__desc {
+  font-size: 23rpx;
+  color: var(--text2);
+  margin-top: 14rpx;
+  line-height: 1.7;
+}
+
+.fw__list {
+  margin-top: 32rpx;
+  padding: 0 28rpx;
+}
+
+.fw__row {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+  padding: 28rpx 0;
+  border-bottom: 1rpx solid var(--divider);
+}
+
+.fw__row:last-child {
+  border-bottom: none;
+}
+
+.fw__avatar-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+.fw__name {
+  font-size: 31rpx;
+  font-weight: 500;
+}
+
+.fw__meal {
+  font-size: 23rpx;
+  color: var(--text2);
+  margin-top: 6rpx;
+}
+
+.fw__meal--on {
+  color: var(--primary);
+}
+
+.fw__unfollow {
+  font-size: 22rpx;
+  color: var(--text2);
+  padding: 10rpx 20rpx;
+  border-radius: 999rpx;
+  background: #F6F1EC;
+  flex-shrink: 0;
+}

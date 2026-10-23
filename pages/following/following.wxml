@@ -1,0 +1,31 @@
+<view class="page">
+  <view class="fw__title">我最近在跟吃 {{list.length}} 个人</view>
+  <view class="fw__desc">跟吃只是「我觉得 TA 的口味有参考价值」。这里不显示对方有多少粉丝。</view>
+
+  <view class="card fw__list" wx:if="{{list.length}}">
+    <view class="fw__row" wx:for="{{list}}" wx:key="id" data-id="{{item.id}}" bindtap="goAuthor">
+      <view
+        class="avatar avatar--md"
+        style="background: linear-gradient(140deg, {{item.avatarColor1}} 0%, {{item.avatarColor2}} 100%);"
+      >
+        <image wx:if="{{item.hasAvatarImage}}" class="fw__avatar-img" src="{{item.avatarUrl}}" mode="aspectFill" />
+        <text wx:else>{{item.avatarDisplay}}</text>
+      </view>
+      <view class="grow">
+        <view class="fw__name">{{item.nickname}}</view>
+        <view class="fw__meal {{item.todayMeal.tone === 'primary' ? 'fw__meal--on' : ''}}">
+          {{item.todayMeal.text}}
+        </view>
+      </view>
+      <view class="fw__unfollow" data-id="{{item.id}}" data-name="{{item.nickname}}" catchtap="unfollow">
+        已跟吃 ✓
+      </view>
+    </view>
+  </view>
+
+  <view class="empty" wx:else>
+    <image class="empty__img" src="/assets/logo_main.png" mode="aspectFit" />
+    <view class="empty__text">还没有跟吃的人</view>
+    <view class="empty__text">看到喜欢的饭记，点进作者主页就能跟吃 TA。</view>
+  </view>
+</view>

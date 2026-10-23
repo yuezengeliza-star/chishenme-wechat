@@ -1,0 +1,84 @@
+<view class="page">
+  <!-- 顶部：月份切换 + 本月汇总 -->
+  <view class="cal-head card">
+    <view class="cal-head__row">
+      <view class="cal-nav" bindtap="prevMonth">‹</view>
+      <view class="cal-head__month">{{monthLabel}}</view>
+      <view class="cal-nav {{canNext ? '' : 'cal-nav--off'}}" bindtap="nextMonth">›</view>
+    </view>
+    <view class="cal-head__stat">
+      <view class="cal-stat">
+        <view class="cal-stat__label">本月已记录</view>
+        <view class="cal-stat__value">{{monthCount}} 顿</view>
+      </view>
+      <view class="cal-stat" bindtap="goStats">
+        <view class="cal-stat__label">本月消费</view>
+        <view class="cal-stat__value cal-stat__value--primary">{{monthTotalText}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 月历 -->
+  <view class="cal card">
+    <view class="cal__week">
+      <view class="cal__week-cell" wx:for="{{week}}" wx:key="*this">{{item}}</view>
+    </view>
+
+    <view class="cal__grid">
+      <view
+        wx:for="{{cells}}"
+        wx:key="key"
+        class="cal__cell {{item.empty ? 'cal__cell--empty' : ''}} {{item.isToday ? 'cal__cell--today' : ''}} {{selectedKey === item.key ? 'cal__cell--on' : ''}}"
+        data-key="{{item.empty ? '' : item.key}}"
+        bindtap="onDayTap"
+      >
+        <block wx:if="{{!item.empty}}">
+          <text class="cal__day">{{item.day}}</text>
+          <view class="cal__dots">
+            <view class="cal__dot" wx:if="{{item.has}}"></view>
+          </view>
+        </block>
+      </view>
+    </view>
+  </view>
+
+  <!-- 选中日期详情：早餐 / 午餐 / 晚餐 + 当日合计 -->
+  <view class="day card" wx:if="{{selectedKey}}">
+    <view class="day__head">
+      <text class="day__date">{{selectedLabel}}</text>
+      <text class="day__total" wx:if="{{selectedTotalText}}">当天 {{selectedTotalText}}</text>
+      <text class="day__total day__total--none" wx:else>当天没有记录</text>
+    </view>
+
+    <view class="day__rows">
+      <view
+        class="day__row"
+        wx:for="{{selectedSlots}}"
+        wx:key="label"
+        data-id="{{item.meal.id}}"
+        bindtap="openMeal"
+      >
+        <view class="day__row-left">
+          <text class="day__emoji">{{item.emoji}}</text>
+          <view>
+            <view class="day__type">{{item.label}}</view>
+            <view class="day__name">{{item.meal ? item.meal.name : '还没记录'}}</view>
+          </view>
+        </view>
+        <view class="day__row-right">
+          <text class="day__amount" wx:if="{{item.meal && item.meal.amountKnown}}">{{item.meal.amountText}}</text>
+          <text class="day__amount day__amount--none" wx:elif="{{item.meal}}">未记金额</text>
+          <text class="cell-arrow" wx:if="{{item.meal}}">›</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="day__tip" wx:if="{{selectedTotalText}}">
+      饭历只包含真实已经吃过的饭。收藏和餐单计划不会出现在这里。
+    </view>
+  </view>
+
+  <view class="cal__empty" wx:else>
+    点某一天，看看那天吃了什么。
+  </view>
+</view>

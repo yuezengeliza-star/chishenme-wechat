@@ -1,0 +1,81 @@
+<view class="page">
+  <!-- 今天 / 明天 -->
+  <view class="segment plan-seg">
+    <view
+      wx:for="{{boards}}"
+      wx:key="key"
+      class="segment__item {{activeDay === index ? 'segment__item--on' : ''}}"
+      data-index="{{index}}"
+      bindtap="switchDay"
+    >
+      {{item.label}}
+    </view>
+  </view>
+
+  <block wx:if="{{boards[activeDay]}}">
+    <view class="plan-date">{{boards[activeDay].label}} · {{boards[activeDay].dateText}}</view>
+
+    <view class="plan-slot-card card" wx:for="{{boards[activeDay].slots}}" wx:key="mealType">
+      <view class="plan-slot-card__head">
+        <view class="plan-slot-card__left">
+          <text class="plan-slot-card__emoji">{{item.emoji}}</text>
+          <text class="plan-slot-card__label">{{item.mealTypeLabel}}</text>
+        </view>
+        <text
+          class="tag {{item.status === 'completed' ? 'tag--sage' : item.status === 'planned' ? 'tag--apricot' : 'tag--plain'}}"
+        >
+          {{item.statusLabel}}
+        </text>
+      </view>
+
+      <!-- 已安排 -->
+      <block wx:if="{{item.hasPlan}}">
+        <view class="plan-slot-card__body" data-id="{{item.mealId}}" bindtap="openMeal">
+          <view
+            class="plan-slot-card__thumb"
+            style="background: linear-gradient(150deg, {{item.grad1}} 0%, {{item.grad2}} 100%);"
+          >
+            <text>{{item.foodEmoji}}</text>
+          </view>
+          <view class="grow">
+            <view class="plan-slot-card__name">{{item.name}}</view>
+            <view class="plan-slot-card__sub">
+              <text wx:if="{{item.sourceText}}" class="plan-slot-card__source">{{item.sourceText}}</text>
+              <text wx:if="{{item.referenceAmountText}}" class="plan-slot-card__ref">{{item.referenceAmountText}}</text>
+            </view>
+          </view>
+          <text class="cell-arrow" wx:if="{{item.status === 'completed'}}">›</text>
+        </view>
+
+        <view class="plan-slot-card__actions" wx:if="{{item.status === 'planned'}}">
+          <button class="btn btn--soft btn--sm" bindtap="cancelPlan" data-slot="{{item.mealType}}">取消</button>
+          <button class="btn btn--primary btn--sm grow" bindtap="ateIt" data-slot="{{item.mealType}}">
+            我吃了
+          </button>
+        </view>
+        <view class="plan-slot-card__done" wx:else>
+          已计入饭历和消费统计
+        </view>
+      </block>
+
+      <!-- 未安排 -->
+      <block wx:else>
+        <view class="plan-slot-card__empty">还没想好吃什么</view>
+        <view class="plan-slot-card__quick">
+          <view class="quick-btn" bindtap="goFeed">
+            <text class="quick-btn__emoji">🍚</text>
+            <text>看看大家吃什么</text>
+          </view>
+          <view class="quick-btn" bindtap="goRandom">
+            <text class="quick-btn__emoji">🎲</text>
+            <text>随机帮我选</text>
+          </view>
+        </view>
+      </block>
+    </view>
+
+    <view class="plan-foot card card--soft" bindtap="goWish">
+      <text class="plan-foot__text">从「我的想吃」里挑一个安排进来 →</text>
+    </view>
+  </block>
+</view>

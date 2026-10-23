@@ -1,0 +1,88 @@
+<view class="page">
+  <!-- 顶部：主动录入 -->
+  <view class="wish-add" bindtap="addWish" hover-class="card--hover">
+    <text class="wish-add__plus">＋</text>
+    <text class="wish-add__text">记一个想吃的</text>
+  </view>
+
+  <view class="wish-head">
+    <text class="wish-head__title">我的想吃</text>
+    <text class="wish-head__count">{{wishes.length}} 个</text>
+  </view>
+  <view class="wish-head__desc">私人饮食愿望清单。收藏别人的饭记，或者自己随手记下路过的小馆子。</view>
+
+  <block wx:if="{{wishes.length}}">
+    <view class="wish card" wx:for="{{wishes}}" wx:key="id">
+      <view class="wish__main">
+        <view
+          class="wish__thumb"
+          style="background: linear-gradient(150deg, {{item.grad1}} 0%, {{item.grad2}} 100%);"
+        >
+          <text>{{item.emoji}}</text>
+        </view>
+
+        <view class="grow">
+          <view class="wish__name">{{item.name}}</view>
+          <view class="wish__meta">
+            <text wx:if="{{item.placeName || item.areaName}}" class="wish__place">
+              {{item.placeName || item.areaName}}
+            </text>
+            <text wx:if="{{item.amountText}}" class="wish__amount">{{item.amountText}}</text>
+          </view>
+          <view class="wish__note" wx:if="{{item.note}}">“{{item.note}}”</view>
+          <view
+            class="wish__source"
+            wx:if="{{item.sourceType === 'savedMeal'}}"
+            data-source="{{item.sourceMealId}}"
+            bindtap="openSource"
+          >
+            {{item.sourceText}} ›
+          </view>
+          <view class="wish__source wish__source--own" wx:else>{{item.sourceText}}</view>
+        </view>
+      </view>
+
+      <view class="wish__actions">
+        <view class="wish__link" data-id="{{item.id}}" bindtap="ateIt">我吃过了</view>
+        <view class="wish__link wish__link--danger" data-id="{{item.id}}" bindtap="remove">移除</view>
+        <button class="btn btn--primary btn--sm grow" data-id="{{item.id}}" bindtap="openPlan">
+          安排到餐单
+        </button>
+      </view>
+    </view>
+  </block>
+
+  <view class="empty" wx:else>
+    <image class="empty__img" src="/assets/logo_main.png" mode="aspectFit" />
+    <view class="empty__text">还没有想吃的</view>
+    <view class="empty__text">看到别人吃的饭记，点个「收藏」就会出现在这里。</view>
+  </view>
+</view>
+
+<!-- 安排到餐单 -->
+<view class="mask" wx:if="{{planSheet}}" bindtap="closePlan"></view>
+<view class="sheet anim-up" wx:if="{{planSheet}}">
+  <view class="sheet__title">安排到餐单</view>
+  <view class="sheet__desc">{{planTarget.name}} · 这只是计划，不算已经吃过</view>
+
+  <view wx:for="{{planOptions}}" wx:key="dateKey" class="plan-group">
+    <view class="plan-group__label">{{item.label}}</view>
+    <view class="plan-slots">
+      <view
+        wx:for="{{item.slots}}"
+        wx:for-item="slot"
+        wx:key="mealType"
+        class="plan-slot {{slot.taken ? 'plan-slot--taken' : ''}}"
+        data-type="{{slot.mealType}}"
+        data-date="{{item.dateKey}}"
+        bindtap="pickPlan"
+      >
+        <text class="plan-slot__emoji">{{slot.emoji}}</text>
+        <text class="plan-slot__label">{{slot.label}}</text>
+        <text wx:if="{{slot.taken}}" class="plan-slot__taken">已安排</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="sheet__close" bindtap="closePlan">取消</view>
+</view>
