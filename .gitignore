@@ -1,0 +1,17 @@
+# Local configuration / secrets
+.env
+.env.*
+!.env.example
+project.private.config.json
+*.pem
+*.key
+*.p12
+*.pfx
+credentials.json
+secrets.json
+# Dependencies & generated files
+node_modules/
+**/node_modules/
+.DS_Store
+Thumbs.db
+*.log
